@@ -1,1 +1,1 @@
-# 2D TowerDefence basic
+# TowerDefence basic
