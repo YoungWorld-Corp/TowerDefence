@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/style_sheet.uss?fileID=7433441132597879392&amp;guid=a5d7477aa4986644bb3391b2faa66178&amp;type=3#style_sheet" />
+    <ui:VisualElement style="height: 509px;">
+        <ui:Button text="Button" display-tooltip-when-elided="true" style="justify-content: flex-start; align-items: stretch; height: 183px;" />
+    </ui:VisualElement>
+</ui:UXML>
