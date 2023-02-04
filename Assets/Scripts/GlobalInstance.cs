@@ -27,24 +27,3 @@ public class GlobalInstance
 
 }
 
-public class User
-{
-    private Card[] hand;
-
-    public User()
-    {
-        hand = new Card[5];
-    }
-
-   
-    public Card[] GetHand()
-    {
-        return hand;
-    }
-
-    public Card[] UpdateHand(Card[] newHand)
-    {
-        hand = newHand;
-        return hand;
-    }
-}
