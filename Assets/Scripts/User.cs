@@ -33,7 +33,7 @@ public class User
     {
         if (batchSize > 5)
         {
-            //¿¡·¯·Î±×
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½
             Debug.LogError("Draw Count Over Max Hand size " + 5);
             return null;
         }
@@ -60,6 +60,34 @@ public class User
         UpdateHand(retCards);
 
 
+        return retCards;
+    }
+
+    public List<Card> ChangeOne(List<Card> retCards, int index)
+    {
+        int BATCH_SIZE = 5;
+        if (retCards.Count != BATCH_SIZE)
+        {
+            Debug.LogError("User::ChangeOne retCards length is not 5");
+            return null;
+        }
+
+        retCards.RemoveAt(index);
+        
+        while (true)
+        {
+            Card newCard = new Card().Rand();
+
+            if (retCards.Contains(newCard))
+            {
+                continue;
+            }
+
+            retCards.Insert(index, newCard);
+            break;
+        }
+
+        UpdateHand(retCards);
         return retCards;
     }
 }

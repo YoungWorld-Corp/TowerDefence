@@ -5,7 +5,7 @@ enum CardShape
     Spade = 0,
     Diamond,
     Heart,
-    Clover,
+    Club,
 }
 public class Card
 {
@@ -30,6 +30,33 @@ public class Card
         Shape = (CardShape)Random.Range(0, 4);
         Number = Random.Range(1, 14);
         return this;
+    }
+
+    public string ToResourceString()
+    {
+        string shapeStr = "";
+        switch(Shape)
+        {
+            case CardShape.Spade:
+                shapeStr = "Spade";
+                break;
+
+            case CardShape.Diamond:
+                shapeStr = "Diamond";
+                break;
+
+            case CardShape.Heart:
+                shapeStr = "Heart";
+                break;
+
+            case CardShape.Club:
+                shapeStr = "Club";
+                break;
+        }
+
+        string numStr = Number.ToString("00");
+
+        return shapeStr + numStr;
     }
 
     public static bool operator ==(Card c1, Card c2) {

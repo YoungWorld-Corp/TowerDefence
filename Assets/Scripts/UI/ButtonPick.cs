@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ButtonPick : MonoBehaviour, IPointerDownHandler
 {
     // Start is called before the first frame update
+    public Card5Panel card5Panel;
 
     public void Awake()
     {
@@ -24,14 +25,14 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
         {
             resStr += " \n"+ card.ToString();
         }
+        card5Panel.SetCardImages(result);
 
         GameObject.Find("Text_noti_pro").GetComponent<TMPro.TextMeshProUGUI>().text = resStr;
-        //1 -> ¿©±â¼­ ÅØ½ºÆ® ¹Ú½º ÄÄÆ÷³ÍÆ® ¾îÄÉµé°í¿È???? ¾ß¹ß
+        //1 -> ï¿½ï¿½ï¿½â¼­ ï¿½Ø½ï¿½Æ® ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½???? ï¿½ß¹ï¿½
 
     }
     void Start()
     {
-        
     }
 
     // Update is called once per frame
