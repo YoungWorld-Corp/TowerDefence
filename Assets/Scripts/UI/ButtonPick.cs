@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class ButtonPick : MonoBehaviour, IPointerDownHandler
@@ -14,7 +15,7 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         //Output the name of the GameObject that is being clicked
-        Card[] result = GlobalInstance.GetInstance().GetUser().BatchDraw(5);
+        List<Card> result = GlobalInstance.GetInstance().GetUser().BatchDraw(5);
         Debug.Log(" Game Object Click in Progress");
 
 
