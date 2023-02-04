@@ -8,29 +8,32 @@ public class Mob : MonoBehaviour
 
     public float speed = 5f;
 
-    private Transform target;
+    private Vector3 target;
     private int waypointIndex = 0;
+    
+    List<Vector3> wayPoints;
 
     void Start()
     {
-        target = Waypoints.points[0];
     }
 
     void Update()
     {
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = target - transform.position;
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f)
+        if (Vector3.Distance(transform.position, target) <= 0.05f)
         {
             GetNextWaypoint();
         }
     }
 
-    public void Initialize(int mobId, string resourcePath, Vector3 startLoc)
+    public void Initialize(int mobId, string resourcePath, List<Vector3> wayPoints)
     {
-        transform.Translate(startLoc);
+        transform.Translate(wayPoints[0]);
         SetSpriteRenderer(resourcePath);
+        this.wayPoints = wayPoints;
+        target = wayPoints[1];
     }
 
     void SetSpriteRenderer(string resourcePath)
@@ -42,13 +45,14 @@ public class Mob : MonoBehaviour
 
     void GetNextWaypoint()
     {
-        if (waypointIndex >= Waypoints.points.Length - 1)
+        if (waypointIndex >= wayPoints.Count - 1)
         {
             Destroy(gameObject);
             return;
         }
 
         waypointIndex++;
-        target = Waypoints.points[waypointIndex];
+        
+        target = wayPoints[waypointIndex];
     }
 }
