@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum CardShape
@@ -11,8 +12,8 @@ public enum CardShape
 
 public class Card
 {
-    CardShape Shape;
-    int Number; // 1~10, 11 12 13 (K Q J), 
+    public CardShape Shape { get; set; }
+    public int Number { get; set; } // 1~10, 11 12 13 (K Q J), 
 
     public Card()
     {
@@ -33,9 +34,6 @@ public class Card
         Number = Random.Range(1, 14);
         return this;
     }
-
-    public CardShape GetShape() { return Shape; }
-    public int GetNumber() { return Number; }
 
     public string ToResourceString()
     {
@@ -104,24 +102,23 @@ public class CardUtil : Card
     //TODO : 페어나면 앞으로 밀어줘야 함
     public static List<Card> SortCardList(List<Card> cards)
     {
-        for(int i=0;i<cards.Count;i++)
+        // Group the cards by number and count
+        var groups = cards.GroupBy(x => x.Number)
+            .Select(x => new { Number = x.Key, Count = x.Count() });
+
+        // Sort the groups by the count in descending order and then by the number in ascending order
+        var sortedGroups = groups.OrderByDescending(x => x.Count)
+            .ThenBy(x => x.Number);
+
+        // Create a new list of cards by expanding the sorted groups
+        List<Card> sortedHand = new List<Card>();
+        foreach (var group in sortedGroups)
         {
-            for(int j=0;j<cards.Count -1;j++)
-            {
-                if(cards[j].GetNumber().CompareTo(cards[j+1].GetNumber()) > 0)
-                {
-                    (cards[j+1], cards[j]) = (cards[j], cards[j+1]);
-                } else if (cards[j].GetNumber().CompareTo(cards[j + 1].GetNumber()) == 0)
-                {
-                    //같은숫자면 S H D C 순으로 정렬 // 미국에선 SHDC 고 SDHC은 한국 로컬룰인듯;
-                    if(cards[j].GetShape().CompareTo(cards[j + 1].GetShape()) > 0)
-                    {
-                        (cards[j + 1], cards[j]) = (cards[j], cards[j + 1]);
-                    }
-                }
-            }
+            var hands = cards.Where(x => x.Number == group.Number);
+            sortedHand.AddRange(hands);
         }
-        return cards;
+
+        return sortedHand;  
     }
 
     
@@ -135,74 +132,90 @@ public class CardUtil : Card
             Debug.LogError("Deck Size is not 5");
             return DeckMadeType.None;
         }
+
+        deck = SortCardList(deck);
         
         //Check Royal Straight Flush
-        if (deck[0].GetNumber() == 1 && deck[1].GetNumber() == 10 && deck[2].GetNumber() == 11 && deck[3].GetNumber() == 12 && deck[4].GetNumber() == 13)
+        if (deck[0].Number == 1 && deck[1].Number == 10 && deck[2].Number == 11 && deck[3].Number == 12 && deck[4].Number == 13)
         {
-            if (deck[0].GetShape() == deck[1].GetShape() && deck[1].GetShape() == deck[2].GetShape() && deck[2].GetShape() == deck[3].GetShape() && deck[3].GetShape() == deck[4].GetShape())
+            if (deck[0].Shape == deck[1].Shape && deck[1].Shape == deck[2].Shape && deck[2].Shape == deck[3].Shape && deck[3].Shape == deck[4].Shape)
             {
                 return DeckMadeType.RoyalStraightFlush;
             }
         }
         
-        //Check Straight Flush
-        if (deck[0].GetNumber() + 1 == deck[1].GetNumber() && deck[1].GetNumber() + 1 == deck[2].GetNumber() && deck[2].GetNumber() + 1 == deck[3].GetNumber() && deck[3].GetNumber() + 1 == deck[4].GetNumber())
+        //Check Back Straight Flush
+        if (deck[0].Number == 1 && deck[1].Number == 2 && deck[2].Number == 3 && deck[3].Number == 4 && deck[4].Number == 5)
         {
-            if (deck[0].GetShape() == deck[1].GetShape() && deck[1].GetShape() == deck[2].GetShape() && deck[2].GetShape() == deck[3].GetShape() && deck[3].GetShape() == deck[4].GetShape())
+            if (deck[0].Shape == deck[1].Shape && deck[1].Shape == deck[2].Shape && deck[2].Shape == deck[3].Shape && deck[3].Shape == deck[4].Shape)
+            {
+                return DeckMadeType.BackStraightFlush;
+            }
+        }
+        
+        //Check Straight Flush
+        if (deck[0].Number + 1 == deck[1].Number && deck[1].Number + 1 == deck[2].Number && deck[2].Number + 1 == deck[3].Number && deck[3].Number + 1 == deck[4].Number)
+        {
+            if (deck[0].Shape == deck[1].Shape && deck[1].Shape == deck[2].Shape && deck[2].Shape == deck[3].Shape && deck[3].Shape == deck[4].Shape)
             {
                 return DeckMadeType.StraightFlush;
             }
         }
         
         //Check Four of a Kind
-        if (deck[0].GetNumber() == deck[1].GetNumber() && deck[1].GetNumber() == deck[2].GetNumber() && deck[2].GetNumber() == deck[3].GetNumber())
+        if (deck[0].Number == deck[1].Number && deck[1].Number == deck[2].Number && deck[2].Number == deck[3].Number)
         {
             return DeckMadeType.FourOfAKind;
         }
         
         //Check Full House
-        if (deck[0].GetNumber() == deck[1].GetNumber() && deck[1].GetNumber() == deck[2].GetNumber() && deck[3].GetNumber() == deck[4].GetNumber())
+        if (deck[0].Number == deck[1].Number && deck[1].Number == deck[2].Number && deck[3].Number == deck[4].Number)
         {
             return DeckMadeType.FullHouse;
         }
         
         //Check Flush
-        if (deck[0].GetShape() == deck[1].GetShape() && deck[1].GetShape() == deck[2].GetShape() && deck[2].GetShape() == deck[3].GetShape() && deck[3].GetShape() == deck[4].GetShape())
+        if (deck[0].Shape == deck[1].Shape && deck[1].Shape == deck[2].Shape && deck[2].Shape == deck[3].Shape && deck[3].Shape == deck[4].Shape)
         {
             return DeckMadeType.Flush;
         }
         
+        //Check Mountain
+        if (deck[0].Number == 10 && deck[1].Number == 11 && deck[2].Number == 12 && deck[3].Number == 13 && deck[4].Number == 1)
+        {
+            return DeckMadeType.Mountain;
+        }
+        
         //Check BackStraight
-        if (deck[0].GetNumber() == 1 && deck[1].GetNumber() == 2 && deck[2].GetNumber() == 3 && deck[3].GetNumber() == 4 && deck[4].GetNumber() == 5)
+        if (deck[0].Number == 1 && deck[1].Number == 2 && deck[2].Number == 3 && deck[3].Number == 4 && deck[4].Number == 5)
         {
             return DeckMadeType.BackStraight;
         }
         
         //Check Straight
-        if (deck[0].GetNumber() + 1 == deck[1].GetNumber() && deck[1].GetNumber() + 1 == deck[2].GetNumber() && deck[2].GetNumber() + 1 == deck[3].GetNumber() && deck[3].GetNumber() + 1 == deck[4].GetNumber())
+        if (deck[0].Number + 1 == deck[1].Number && deck[1].Number + 1 == deck[2].Number && deck[2].Number + 1 == deck[3].Number && deck[3].Number + 1 == deck[4].Number)
         {
             return DeckMadeType.Straight;
         }
         
         //Check Three of a Kind
-        if (deck[0].GetNumber() == deck[1].GetNumber() && deck[1].GetNumber() == deck[2].GetNumber())
+        if (deck[0].Number == deck[1].Number && deck[1].Number == deck[2].Number)
         {
             return DeckMadeType.ThreeOfAKind;
         }
         
         //Check Two Pair
-        if (deck[0].GetNumber() == deck[1].GetNumber() && deck[2].GetNumber() == deck[3].GetNumber())
+        if (deck[0].Number == deck[1].Number && deck[2].Number == deck[3].Number)
         {
             return DeckMadeType.TwoPair;
         }
         
         //Check One Pair
-        if (deck[0].GetNumber() == deck[1].GetNumber())
+        if (deck[0].Number == deck[1].Number)
         {
             return DeckMadeType.OnePair;
         }
 
         return DeckMadeType.None;
     }
-
 }
