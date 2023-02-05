@@ -3,11 +3,11 @@ using UnityEngine;
 public class GlobalInstance
 {
     private static GlobalInstance instance;
-    private static User user;
+    private User user;
 
     private GlobalInstance()
     {
-        user = new User();
+        this.user = new User();
     }
 
     // public static method to access private instance from anywhere!
@@ -22,7 +22,7 @@ public class GlobalInstance
 
     public User GetUser()
     {
-        return user;
+        return instance.user;
     }
 
 }
