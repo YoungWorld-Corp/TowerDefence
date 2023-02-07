@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
 
     public float speed = 5f;
 
     private Vector3 target;
     private int waypointIndex = 0;
+
+    public MobHealth  Health { get; set; }
     
     List<Vector3> wayPoints;
 
@@ -38,7 +39,7 @@ public class Mob : MonoBehaviour
 
     void SetSpriteRenderer(string resourcePath)
     {
-        SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
         spriteRenderer.sprite = Resources.Load(resourcePath, typeof(Sprite)) as Sprite;
         spriteRenderer.sortingOrder = 1;
     }
@@ -54,5 +55,25 @@ public class Mob : MonoBehaviour
         waypointIndex++;
         
         target = wayPoints[waypointIndex];
+    }
+}
+
+public class MobHealth: MonoBehaviour
+{
+    public float health = 100f;
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0f)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        //Destroy job
+        Destroy(gameObject);
     }
 }

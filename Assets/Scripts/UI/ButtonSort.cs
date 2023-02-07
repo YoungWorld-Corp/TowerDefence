@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ButtonSort : MonoBehaviour, IPointerDownHandler
 {
-    Card5Panel card5Panel;
+    public Card5Panel Card5Panel;
 
     public void Awake()
     {
@@ -22,12 +22,12 @@ public class ButtonSort : MonoBehaviour, IPointerDownHandler
         
         
         // ? card5Panel Why null?
-        card5Panel.SetCardImages(hand);
+        Card5Panel.SetCardImages(hand);
     }
     
     void Start()
     {
-        card5Panel = GameObject.Find("Card5Panel").GetComponent<Card5Panel>();
+        Card5Panel = GameObject.Find("Card5Panel").GetComponent<Card5Panel>();
     }
 
     // Update is called once per frame

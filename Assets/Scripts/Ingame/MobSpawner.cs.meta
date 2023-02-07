@@ -3,7 +3,9 @@ guid: 6e54f3afd826c8744a7434c6fdd3879b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tilemap: {instanceID: 0}
+  - Prefab_Shark: {fileID: 2630121654650864849, guid: 0bfe342869679d14b912a73a140292f6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

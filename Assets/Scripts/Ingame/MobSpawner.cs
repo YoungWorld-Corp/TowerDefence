@@ -6,8 +6,10 @@ using UnityEngine.Tilemaps;
 public class MobSpawner : MonoBehaviour
 {
     public Tilemap tilemap;
+    public GameObject Prefab_Shark;
     MobSpawnRule spawnRule;
     List<Vector3> wayPointsWorld;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +34,12 @@ public class MobSpawner : MonoBehaviour
         }
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     void SpawnMob(int mobId, List<Vector3> wayPointsWorld)
     {
-        GameObject mobObj = new GameObject();
-        Mob mob = mobObj.AddComponent<Mob>() as Mob;
-        mob.Initialize(mobId, "Shark", wayPointsWorld);
+        GameObject sharkPrefab =  Instantiate(Prefab_Shark, wayPointsWorld[0], Quaternion.identity);
+        Mob sharkMob = sharkPrefab.GetComponent<Mob>() as Mob;
+        sharkMob.Initialize(mobId, "Characters/Shark", wayPointsWorld);
     }
 
     List<Vector2Int> GetDefaultWayPoints()
