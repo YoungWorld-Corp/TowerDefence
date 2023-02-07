@@ -65,6 +65,10 @@ public class Card5Panel : MonoBehaviour
         }
 
         List<Card> result = GlobalInstance.GetInstance().GetUser().ChangeOne(currentCardList, index);
+        CardUtil.Evaluate(result);
+        DeckMadeType type = CardUtil.Evaluate(result);
+        GameObject.Find("Text_noti_pro").GetComponent<TMPro.TextMeshProUGUI>().text = type.ToString();
+        
         SetCardImages(result);
     }
 }
