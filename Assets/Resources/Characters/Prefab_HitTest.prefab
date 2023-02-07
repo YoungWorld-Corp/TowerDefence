@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4522455664381315058}
   - component: {fileID: 1658513794755656622}
   - component: {fileID: 9150924614189845513}
-  - component: {fileID: 2627930015763159405}
+  - component: {fileID: -2041920282084782361}
   m_Layer: 0
-  m_Name: Prefab_Shark
+  m_Name: Prefab_HitTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2627930015763159405
+--- !u!114 &-2041920282084782361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,10 +134,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2630121654650864849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 592142a82a6325c488755ed4ca08724c, type: 3}
+  m_Script: {fileID: 11500000, guid: a41d9d00bd594c54087614c28f67432e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
 --- !u!1 &2649574787032023486
 GameObject:
   m_ObjectHideFlags: 0
