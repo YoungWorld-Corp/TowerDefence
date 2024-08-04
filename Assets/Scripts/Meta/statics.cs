@@ -121,29 +121,30 @@ class MobData
     {
         switch (stage)
         {
-            case 1:
+            case 0:
                 return new MobSpawnRule(MobType.Shark, 10, 50, 1);
-            case 2:
+            case 1:
                 return new MobSpawnRule(MobType.Shark, 10, 100, 1);
-            case 3:
+            case 2:
                 return new MobSpawnRule(MobType.Shark, 10, 200, 1);
-            case 4:
+            case 3:
                 return new MobSpawnRule(MobType.Shark, 10, 400, 1);
-            case 5:
+            case 4:
                 return new MobSpawnRule(MobType.Shark, 10, 800, 1);
-            case 6:
+            case 5:
                 return new MobSpawnRule(MobType.Shark, 10, 1600, 1);
-            case 7:
+            case 6:
                 return new MobSpawnRule(MobType.Shark, 10, 3200, 1);
-            case 8:
+            case 7:
                 return new MobSpawnRule(MobType.Shark, 10, 6400, 1);
-            case 9:
+            case 8:
                 return new MobSpawnRule(MobType.Shark, 10, 12800, 1);
-            case 10:
+            case 9:
                 return new MobSpawnRule(MobType.Shark, 10, 25600, 1);
-
-            default:
+            case 10:
                 return new MobSpawnRule(MobType.Shark, 10, 51200, 1);
+            default:
+                return new MobSpawnRule(MobType.Shark, 10, 50, 1);
         }
     }
 }

@@ -187,6 +187,7 @@ MonoBehaviour:
   mobSpawner: {fileID: 0}
   buttonPick: {fileID: 1491696289}
   UICanvas: {fileID: 803632220}
+  curStage: 0
 --- !u!4 &181757801
 Transform:
   m_ObjectHideFlags: 0

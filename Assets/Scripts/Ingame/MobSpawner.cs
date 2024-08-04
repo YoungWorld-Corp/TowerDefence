@@ -80,19 +80,20 @@ public class MobSpawner : MonoBehaviour
         {
             spawnRule.delta = 0;
             spawnRule.num--;
-            SpawnMob(spawnRule.mobType, wayPointsWorld);
+            SpawnMob(spawnRule.mobType, wayPointsWorld, spawnRule.Hp);
         }
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
-    void SpawnMob(MobType mobType, List<Vector3> wayPointsWorld)
+    void SpawnMob(MobType mobType, List<Vector3> wayPointsWorld, int Hp)
     {
-        GameObject sharkPrefab =  Instantiate(Prefab_Shark, wayPointsWorld[0], Quaternion.identity);
-        Mob sharkMob = sharkPrefab.GetComponent<Mob>();
+        GameObject sharkObject =  Instantiate(Prefab_Shark, wayPointsWorld[0], Quaternion.identity);
+        Mob sharkMob = sharkObject.GetComponent<Mob>();
 
         int mobId = spawnRule.GetNextMobId();
         sharkMob.name = "Mob_" + mobId;
         sharkMob.Initialize(mobType, "Characters/Shark", wayPointsWorld, mobId, this);
+        sharkMob.health = Hp;
     }
 
     List<Vector2Int> GetDefaultWayPoints()
