@@ -82,8 +82,10 @@ public class MouseEventManager : MonoBehaviour
             }
             else
             {
-                SpriteRenderer renderer = hoveredTower.GetComponent<SpriteRenderer>();
-                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0f);
+                if (hoveredTower)
+                {
+                    Destroy(hoveredTower);
+                }
             }
         }
 
