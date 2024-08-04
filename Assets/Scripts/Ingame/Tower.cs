@@ -35,7 +35,7 @@ public class Tower : MonoBehaviour
     void Update()
     {
         if (_bDisplayMode) return;
-        
+
         var Mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
         foreach (var mob in Mobs)
         {
@@ -54,7 +54,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void SetData(int level, bool bDisplayMode = false)
+    public void SetData(int level, bool bDisplayMode)
     {
         _level = level;
         // int to enum

@@ -28,6 +28,6 @@ public class TowerSpawner : MonoBehaviour
         towerPrefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + level.ToString());
 
         GameObject tower = Instantiate(towerPrefab, cellPos, Quaternion.identity);
-        tower.GetComponent<Tower>().SetData(level);
+        tower.GetComponent<Tower>().SetData(level, false);
     }
 }
