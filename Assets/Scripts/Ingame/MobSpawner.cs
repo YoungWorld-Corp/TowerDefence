@@ -1,23 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
 
 struct MobSpawnRule
 {
     public MobType mobType;
     public int num;
-    public float time;
+    public float spawnGap;
     public float delta;
+    public int Hp;
 
     private static int mobId = 0;
 
-    public MobSpawnRule(MobType mobId, int num, float time, float delta)
+    public MobSpawnRule(MobType mobId, int num, int Hp, float spawnGap)
     {
         this.mobType=mobId;
         this.num=num;
-        this.time=time;
-        this.delta=delta;
+        this.Hp=Hp;
+        this.spawnGap=spawnGap;
+        this.delta = 0;
     }
 
     public int GetNextMobId()
@@ -60,9 +63,9 @@ public class MobSpawner : MonoBehaviour
         GameState.Instance.mobSpawner = this;
     }
 
-    public void StartPhase()
+    public void StartPhase(int stage)
     {
-        spawnRule = new MobSpawnRule(MobType.Shark, 10, 1, 0);
+        spawnRule = MobData.GetMobSpawnRule(stage);
         spawnState = new SpawnState(spawnRule);
 
         List<Vector2Int> wayPoints = GetDefaultWayPoints();
@@ -73,7 +76,7 @@ public class MobSpawner : MonoBehaviour
     void Update()
     {
         spawnRule.delta += Time.deltaTime;
-        if (spawnRule.time < spawnRule.delta && spawnRule.num > 0)
+        if (spawnRule.spawnGap < spawnRule.delta && spawnRule.num > 0)
         {
             spawnRule.delta = 0;
             spawnRule.num--;

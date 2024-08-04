@@ -12,6 +12,7 @@ public class GameState : MonoBehaviour
 
     public GameObject UICanvas;
     private bool _bPickingPhase = false;
+    public int curStage = 1;
 
     void Awake()
     {
@@ -54,7 +55,8 @@ public class GameState : MonoBehaviour
         else
         {
             UICanvas.SetActive(false);
-            mobSpawner.StartPhase();
+            mobSpawner.StartPhase(curStage);
+            curStage++;
         }
     }
 }
