@@ -192,6 +192,8 @@ MonoBehaviour:
   UICanvas: {fileID: 803632220}
   CardPickingPanel: {fileID: 1554428678}
   GameEndPanel: {fileID: 548746387}
+  Text_Lift: {fileID: 550376626}
+  Text_Stage: {fileID: 956132148}
 --- !u!4 &181757801
 Transform:
   m_ObjectHideFlags: 0
