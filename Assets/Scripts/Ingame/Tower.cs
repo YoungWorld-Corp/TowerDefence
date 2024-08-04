@@ -7,8 +7,8 @@ using Ingame;
 public class Tower : MonoBehaviour
 {
     int id;
-    private float _attackSpeed;
     private int _level;
+    private int _damage;
     private float _attackCooldown; // seconds
     private float _cooldownTimer = 0f;
     
@@ -28,9 +28,6 @@ public class Tower : MonoBehaviour
     {
         imgProjectile = Resources.Load("Prefabs/Projectiles/CommonProjectile") as GameObject;
         Debug.Log(imgProjectile);
-        
-        _attackCooldown = 0.5f;
-        _attackRadius = 3;
     }
 
     // Update is called once per frame
@@ -46,7 +43,7 @@ public class Tower : MonoBehaviour
                 if (_cooldownTimer >= _attackCooldown)
                 {
                     _cooldownTimer = 0f;
-                    SpawnProjectile(mob.GetID());
+                    SpawnProjectile(mob.GetID(), _damage);
 
                     break;
                 }
@@ -57,12 +54,16 @@ public class Tower : MonoBehaviour
     public void SetData(int level)
     {
         _level = level;
+        // int to enum
+        _damage = (int)Meta.TowerDamageFromLevel(level);
+        _attackCooldown = Meta.TowerAttackCooldownFromLevel(level);
+        _attackRadius = Meta.TowerAttackRadisFromLevel(level);
     }
 
-    private void SpawnProjectile(int targetMobId)
+    private void SpawnProjectile(int targetMobId, int damage)
     {
         GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
         Projectile towerProjectile = projectile.GetComponent<Projectile>();
-        towerProjectile.Initialize(id, 30, targetMobId);
+        towerProjectile.Initialize(id, damage, targetMobId);
     }
 }
