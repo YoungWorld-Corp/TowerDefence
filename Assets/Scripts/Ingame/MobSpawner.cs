@@ -53,12 +53,19 @@ public class MobSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnRule = new MobSpawnRule(MobType.Shark, 10, 1, 0);
-        spawnState = new SpawnState(spawnRule);
-
         TilemapGenerator tilemapGenerator = GetComponentInParent<TilemapGenerator>();
         List<Vector2Int> wayPoints = GetDefaultWayPoints();
         tilemapGenerator.InitializeTilemaps(wayPoints);
+
+        GameState.Instance.mobSpawner = this;
+    }
+
+    public void StartPhase()
+    {
+        spawnRule = new MobSpawnRule(MobType.Shark, 10, 1, 0);
+        spawnState = new SpawnState(spawnRule);
+
+        List<Vector2Int> wayPoints = GetDefaultWayPoints();
         wayPointsWorld = CellToWorld(wayPoints);
     }
 

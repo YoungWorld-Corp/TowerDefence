@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     private static GameState instance = null;
+    public MobSpawner mobSpawner;
 
     public int nextTowerLevel { get; set; }
 
@@ -50,6 +51,7 @@ public class GameState : MonoBehaviour
         else
         {
             UICanvas.SetActive(false);
+            mobSpawner.StartPhase();
         }
     }
 }
