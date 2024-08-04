@@ -37,6 +37,8 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_bDisplayMode) return;
+        
         var Mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
         foreach (var mob in Mobs)
         {

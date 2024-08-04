@@ -68,6 +68,7 @@ public class Card5Panel : MonoBehaviour
         CardUtil.Evaluate(ref result);
         DeckMadeType type = CardUtil.Evaluate(ref result);
         GameObject.Find("Text_noti_pro").GetComponent<TMPro.TextMeshProUGUI>().text = type.ToString();
+        GameObject.Find("Text_Remain").GetComponent<TMPro.TextMeshProUGUI>().text = "Remain : " + GlobalInstance.GetInstance().GetUser().remainChance.ToString();
         
         SetCardImages(result);
     }

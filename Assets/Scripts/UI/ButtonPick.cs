@@ -14,6 +14,11 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
+        RefreshCard();
+    }
+
+    public void RefreshCard()
+    {
         //Output the name of the GameObject that is being clicked
         List<Card> result = GlobalInstance.GetInstance().GetUser().BatchDraw(5);
         Debug.Log(" Game Object Click in Progress");
@@ -29,10 +34,12 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
         DeckMadeType type = CardUtil.Evaluate(ref result);
 
         GameObject.Find("Text_noti_pro").GetComponent<TMPro.TextMeshProUGUI>().text = type.ToString();
+        GameObject.Find("Text_Remain").GetComponent<TMPro.TextMeshProUGUI>().text = "Remain : " + GlobalInstance.GetInstance().GetUser().remainChance.ToString();
 
     }
     void Start()
     {
+        RefreshCard();
     }
 
     // Update is called once per frame

@@ -5,6 +5,7 @@ using UnityEngine;
 public class User
 {
     private List<Card> hand;
+    public int remainChance = 10;
 
     public User()
     {
@@ -29,8 +30,19 @@ public class User
         return new Card().Rand();
     }
 
+    public void OnNewPhase()
+    {
+        remainChance = 10;
+    }
+
     public List<Card> BatchDraw(int batchSize)
     {
+        if (remainChance <= 0)
+        {
+            return hand;
+        }
+        remainChance--;
+
         if (batchSize > 5)
         {
             //�����α�
@@ -65,6 +77,12 @@ public class User
 
     public List<Card> ChangeOne(List<Card> retCards, int index)
     {
+        if (remainChance <= 0)
+        {
+            return hand;
+        }
+        remainChance--;
+
         int BATCH_SIZE = 5;
         if (retCards.Count != BATCH_SIZE)
         {
