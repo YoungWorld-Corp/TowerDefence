@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour
     private float _cooldownTimer = 0f;
     
     private int _attackRadius;
+    private bool _bDisplayMode = false;
     
     // prefabs
     public GameObject imgProjectile;
@@ -54,9 +55,10 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void SetData(int level)
+    public void SetData(int level, bool bDisplayMode = false)
     {
         _level = level;
+        _bDisplayMode = bDisplayMode;
     }
 
     private void SpawnProjectile(int targetMobId)
