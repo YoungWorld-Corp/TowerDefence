@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EGamePhase
+{
+    Picking = 0,
+    Battle = 1,
+    GameEnd = 2,
+}
+
 public class GameState : MonoBehaviour
 {
     private static GameState instance = null;
@@ -10,15 +17,21 @@ public class GameState : MonoBehaviour
 
     public int nextTowerLevel { get; set; }
 
+    public EGamePhase currentPhase;
+    public int curStage;
+    public int lifeRemain;
+
+    // UI
     public GameObject UICanvas;
-    private bool _bPickingPhase = false;
-    public int curStage = 1;
+    public GameObject CardPickingPanel;
+    public GameObject GameEndPanel;
 
     void Awake()
     {
         if (null == instance)
         {
             instance = this;
+            OnGameStart();
 
             // don't destory even if scene changes
             DontDestroyOnLoad(this.gameObject);
@@ -28,6 +41,16 @@ public class GameState : MonoBehaviour
             // don't make new instance even if scene changes.
             Destroy(this.gameObject);
         }
+    }
+
+    void OnGameStart()
+    {
+        curStage = 1;
+        lifeRemain = 10;
+        OnChangeLife(0);
+
+        currentPhase = EGamePhase.Picking;
+        GameEndPanel.SetActive(false);
     }
 
     public static GameState Instance
@@ -42,21 +65,49 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void SetPickingPhase(bool bPickingPhase)
+    public void SetPhase(EGamePhase InPhase)
     {
-        _bPickingPhase = bPickingPhase;
+        
+    }
+    public void SetPickingPhase(EGamePhase InPhase)
+    {
+        currentPhase = InPhase;
 
-        if (_bPickingPhase)
+        if (currentPhase == EGamePhase.Picking)
         {
             GlobalInstance.GetInstance().GetUser().OnNewPhase();
             UICanvas.SetActive(true);
             buttonPick.RefreshCard();
         }
-        else
+        else if (currentPhase == EGamePhase.Battle)
         {
             UICanvas.SetActive(false);
             mobSpawner.StartPhase(curStage);
-            curStage++;
+            OnIncreaseStage();
         }
+        else if (currentPhase == EGamePhase.GameEnd)
+        {
+            UICanvas.SetActive(true);
+            CardPickingPanel.SetActive(false);
+            GameEndPanel.SetActive(true);
+        }
+    }
+
+    public void OnChangeLife(int delta)
+    {
+        lifeRemain += delta;
+        if (lifeRemain <= 0)
+        {
+            SetPickingPhase(EGamePhase.GameEnd);
+        }
+        
+        GameObject.Find("Text_Life").GetComponent<TMPro.TextMeshProUGUI>().text = "life : " + lifeRemain.ToString();
+    }
+
+    public void OnIncreaseStage()
+    {
+        curStage++;
+        
+        GameObject.Find("Text_Stage").GetComponent<TMPro.TextMeshProUGUI>().text = "stage : " + curStage.ToString();
     }
 }

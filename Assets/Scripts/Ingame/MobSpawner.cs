@@ -134,7 +134,7 @@ public class MobSpawner : MonoBehaviour
         spawnState.remain--;
         if (spawnState.remain == 0)
         {
-            GameState.Instance.SetPickingPhase(true);
+            GameState.Instance.SetPickingPhase(EGamePhase.Picking);
         }
     }
 }

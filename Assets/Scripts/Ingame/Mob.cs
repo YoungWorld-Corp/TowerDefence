@@ -14,6 +14,7 @@ public class Mob : MonoBehaviour
     private int id;
     
     List<Vector3> wayPoints;
+    private bool _isDestroying = false;
 
     void Start()
     {
@@ -21,6 +22,8 @@ public class Mob : MonoBehaviour
 
     void Update()
     {
+        if (_isDestroying) return;
+
         Vector3 dir = target - transform.position;
         transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);
 
@@ -52,6 +55,7 @@ public class Mob : MonoBehaviour
     {
         if (waypointIndex >= wayPoints.Count - 1)
         {
+            GameState.Instance.OnChangeLife(-1);
             Die();
             return;
         }
@@ -80,7 +84,8 @@ public class Mob : MonoBehaviour
     private void Die()
     {
         //Destroy job
-        Destroy(gameObject);
+        _isDestroying = true;
+        Destroy(this.gameObject);
 
         _spawner.NotifyDie();
     }
