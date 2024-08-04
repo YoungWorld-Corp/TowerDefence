@@ -7,18 +7,41 @@ namespace Ingame
     {
         private int _damage = 30;
         private int _ownerTowerID;
+        private int _targetMobID;
+        
+        public float speed = 10f;
+        
+        private Vector3 _targetPos;
+        private Mob _targetComponent; 
         
         
-        public void Initialize(int ownerTowerID, int damage)
+        public void Initialize(int ownerTowerID, int damage, int targetMobID)
         {
             _damage = damage;
             _ownerTowerID = ownerTowerID;
+            _targetMobID = targetMobID;
+
+            _targetComponent = GameObject.Find("Mob" + _targetMobID).GetComponent<Mob>();
         }
-
-
+        
         private void Update()
         {
+            _targetPos = GameObject.Find("Mob" + _targetMobID).transform.position;
             
+            Vector3 dir = _targetPos - transform.position;
+            transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);
+
+            if (Vector3.Distance(transform.position, _targetPos) <= 0.05f)
+            {
+                HitTask();
+            }
+        }
+
+        private void HitTask()
+        {
+            //TODO : spawn hit particle
+            _targetComponent.TakeDamage(_damage);
+            Destroy(gameObject);
         }
     }
 }

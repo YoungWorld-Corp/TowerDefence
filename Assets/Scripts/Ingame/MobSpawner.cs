@@ -14,7 +14,7 @@ public class MobSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnRule = new MobSpawnRule(0, 10, 1, 0);
+        spawnRule = new MobSpawnRule(MobType.Shark, 10, 1, 0);
 
         TilemapGenerator tilemapGenerator = GetComponentInParent<TilemapGenerator>();
         List<Vector2Int> wayPoints = GetDefaultWayPoints();
@@ -30,16 +30,19 @@ public class MobSpawner : MonoBehaviour
         {
             spawnRule.delta = 0;
             spawnRule.num--;
-            SpawnMob(spawnRule.mobId, wayPointsWorld);
+            SpawnMob(spawnRule.mobType, wayPointsWorld);
         }
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
-    void SpawnMob(int mobId, List<Vector3> wayPointsWorld)
+    void SpawnMob(MobType mobType, List<Vector3> wayPointsWorld)
     {
         GameObject sharkPrefab =  Instantiate(Prefab_Shark, wayPointsWorld[0], Quaternion.identity);
-        Mob sharkMob = sharkPrefab.GetComponent<Mob>() as Mob;
-        sharkMob.Initialize(mobId, "Characters/Shark", wayPointsWorld);
+        Mob sharkMob = sharkPrefab.GetComponent<Mob>();
+
+        int mobId = spawnRule.GetNextMobId();
+        sharkMob.name = "Mob_" + mobId;
+        sharkMob.Initialize(mobType, "Characters/Shark", wayPointsWorld, mobId);
     }
 
     List<Vector2Int> GetDefaultWayPoints()
@@ -78,16 +81,29 @@ public class MobSpawner : MonoBehaviour
 
 struct MobSpawnRule
 {
-    public int mobId;
+    public MobType mobType;
     public int num;
     public float time;
     public float delta;
+    
+    private static int mobId = 0;
 
-    public MobSpawnRule(int mobId, int num, float time, float delta)
+    public MobSpawnRule(MobType mobId, int num, float time, float delta)
     {
-        this.mobId=mobId;
+        this.mobType=mobId;
         this.num=num;
         this.time=time;
         this.delta=delta;
     }
+    
+    public int GetNextMobId()
+    {
+        return mobId++;
+    }
+}
+
+public enum MobType
+{
+    Shark = 0,
+    JellyFish = 1,
 }
