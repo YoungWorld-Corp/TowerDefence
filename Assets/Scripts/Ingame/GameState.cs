@@ -48,9 +48,9 @@ public class GameState : MonoBehaviour
 
         if (_bPickingPhase)
         {
+            GlobalInstance.GetInstance().GetUser().OnNewPhase();
             UICanvas.SetActive(true);
             buttonPick.RefreshCard();
-            GlobalInstance.GetInstance().GetUser().OnNewPhase();
         }
         else
         {
