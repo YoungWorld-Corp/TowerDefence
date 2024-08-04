@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
-
+    
+    public int health = 50;
     public float speed = 5f;
 
     private Vector3 target;
@@ -61,10 +62,8 @@ public class Mob : MonoBehaviour
     }
     
     //health
-    
-    public float health = 100f;
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         health -= amount;
         if (health <= 0f)

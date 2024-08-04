@@ -63,6 +63,6 @@ public class Tower : MonoBehaviour
     {
         GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
         Projectile towerProjectile = projectile.GetComponent<Projectile>();
-        towerProjectile.Initialize(id, 10, targetMobId);
+        towerProjectile.Initialize(id, 30, targetMobId);
     }
 }

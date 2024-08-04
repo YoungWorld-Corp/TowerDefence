@@ -5,7 +5,7 @@ namespace Ingame
 {
     public class Projectile : MonoBehaviour
     {
-        private int _damage = 30;
+        private int _damage;
         private int _ownerTowerID;
         private int _targetMobID;
         
