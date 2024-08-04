@@ -47,14 +47,14 @@ public class GameState : MonoBehaviour
 
         if (_bPickingPhase)
         {
+            UICanvas.SetActive(true);
             buttonPick.RefreshCard();
             GlobalInstance.GetInstance().GetUser().OnNewPhase();
-            UICanvas.SetActive(true);
         }
         else
         {
-            mobSpawner.StartPhase();
             UICanvas.SetActive(false);
+            mobSpawner.StartPhase();
         }
     }
 }
