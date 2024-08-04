@@ -5,19 +5,19 @@ public class Meta
     public enum TowerDamage
     {
         Level0 = 30,
-        Level1 = 35,
-        Level2 = 40,
-        Level3 = 45,
-        Level4 = 50,
-        Level5 = 55,
-        Level6 = 60,
-        Level7 = 70,
-        Level8 = 80,
-        Level9 = 90,
-        Level10 = 100,
-        Level11 = 150,
-        Level12 = 180,
-        Level13 = 200,
+        Level1 = 40,
+        Level2 = 50,
+        Level3 = 70,
+        Level4 = 80,
+        Level5 = 100,
+        Level6 = 120,
+        Level7 = 140,
+        Level8 = 160,
+        Level9 = 180,
+        Level10 = 200,
+        Level11 = 200,
+        Level12 = 300,
+        Level13 = 500,
     }
 
 
@@ -41,12 +41,14 @@ public class Meta
     {
         switch (level)
         {
-            case 0: case 1: case 2: case 3:
+            case 0: case 1:
                 return 0.5f;
-            case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+            case 2: case 3:
                 return 0.3f;
+            case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                return 0.1f;
             case 11: case 12: case 13:
-                return 0.2f;
+                return 0.01f;
             
             default:
                 return 0.5f;
