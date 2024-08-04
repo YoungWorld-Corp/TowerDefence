@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     int id;
+    int level;
     
     // Start is called before the first frame update
     void Start()
@@ -12,6 +13,11 @@ public class Tower : MonoBehaviour
         
     }
 
+    void SetImage()
+    {
+
+    }
+    
     // Update is called once per frame
     void Update()
     {
