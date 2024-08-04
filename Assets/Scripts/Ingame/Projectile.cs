@@ -26,6 +26,12 @@ namespace Ingame
         
         private void Update()
         {
+            if (!_targetComponent)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
             _targetPos = GameObject.Find("Mob_" + _targetMobID).transform.position;
             
             Vector3 dir = _targetPos - transform.position;
