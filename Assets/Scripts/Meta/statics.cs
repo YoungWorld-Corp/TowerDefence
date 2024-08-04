@@ -126,49 +126,49 @@ class MobData
         switch (stage)
         {
             case 0:
-                return new MobSpawnRule(MobType.Shark, 10, 50, 1);
+                return new MobSpawnRule(MobType.Shark, 10, 50, 3, 1);
             case 1:
-                return new MobSpawnRule(MobType.Shark, 20, 100, 0.5f);
+                return new MobSpawnRule(MobType.Shark, 20, 100, 3, 0.5f);
             case 2:
-                return new MobSpawnRule(MobType.Shark, 40, 200, 0.25f);
+                return new MobSpawnRule(MobType.Shark, 40, 200, 3, 0.25f);
             case 3:
-                return new MobSpawnRule(MobType.Shark, 20, 400, 0.5f);
+                return new MobSpawnRule(MobType.Shark, 20, 400, 3, 0.5f);
             case 4:
-                return new MobSpawnRule(MobType.Shark, 40, 800, 0.25f);
+                return new MobSpawnRule(MobType.Shark, 40, 800, 3, 0.25f);
             case 5:
-                return new MobSpawnRule(MobType.Shark, 50, 1600, 0.2f);
+                return new MobSpawnRule(MobType.Shark, 1, 100000, 0.5f, 0.2f);
             case 6:
-                return new MobSpawnRule(MobType.Shark, 100, 3200, 0.1f);
+                return new MobSpawnRule(MobType.Shark, 100, 3200, 3, 0.1f);
             case 7:
-                return new MobSpawnRule(MobType.Shark, 100, 6400, 0.1f);
+                return new MobSpawnRule(MobType.Shark, 100, 6400, 3, 0.1f);
             case 8:
-                return new MobSpawnRule(MobType.Shark, 200, 12800, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 12800, 3, 0.05f);
             case 9:
-                return new MobSpawnRule(MobType.Shark, 200, 25600, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 25600, 3, 0.05f);
             case 10:
-                return new MobSpawnRule(MobType.Shark, 200, 51200, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 5120000, 1, 0.05f);
             case 11:
-                return new MobSpawnRule(MobType.Shark, 200, 102400, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 102400, 3, 0.05f);
             case 12:
-                return new MobSpawnRule(MobType.Shark, 250, 204800, 0.25f);
+                return new MobSpawnRule(MobType.Shark, 250, 204800, 3, 0.25f);
             case 13:
-                return new MobSpawnRule(MobType.Shark, 200, 300000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 300000, 3, 0.05f);
             case 14:
-                return new MobSpawnRule(MobType.Shark, 200, 400000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 400000, 3, 0.05f);
             case 15:
-                return new MobSpawnRule(MobType.Shark, 200, 500000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 500000, 3, 0.05f);
             case 16:
-                return new MobSpawnRule(MobType.Shark, 200, 600000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 600000, 3, 0.05f);
             case 17:
-                return new MobSpawnRule(MobType.Shark, 200, 700000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 700000, 3, 0.05f);
             case 18:
-                return new MobSpawnRule(MobType.Shark, 200, 800000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 800000, 3, 0.05f);
             case 19:
-                return new MobSpawnRule(MobType.Shark, 200, 900000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 900000, 3, 0.05f);
             case 20:
-                return new MobSpawnRule(MobType.Shark, 200, 1000000, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 1000000, 3, 0.05f);
             default:
-                return new MobSpawnRule(MobType.Shark, 200, 50, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 50, 3, 0.05f);
         }
     }
 }

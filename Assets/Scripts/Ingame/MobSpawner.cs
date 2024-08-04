@@ -11,14 +11,16 @@ struct MobSpawnRule
     public float spawnGap;
     public float delta;
     public int Hp;
+    public float speed;
 
     private static int mobId = 0;
 
-    public MobSpawnRule(MobType mobId, int num, int Hp, float spawnGap)
+    public MobSpawnRule(MobType mobId, int num, int Hp, float speed, float spawnGap)
     {
         this.mobType=mobId;
         this.num=num;
         this.Hp=Hp;
+        this.speed=speed;
         this.spawnGap=spawnGap;
         this.delta = 0;
     }
@@ -80,12 +82,12 @@ public class MobSpawner : MonoBehaviour
         {
             spawnRule.delta = 0;
             spawnRule.num--;
-            SpawnMob(spawnRule.mobType, wayPointsWorld, spawnRule.Hp);
+            SpawnMob(spawnRule.mobType, wayPointsWorld, spawnRule.Hp, spawnRule.speed);
         }
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
-    void SpawnMob(MobType mobType, List<Vector3> wayPointsWorld, int Hp)
+    void SpawnMob(MobType mobType, List<Vector3> wayPointsWorld, int Hp, float speed)
     {
         GameObject sharkObject =  Instantiate(Prefab_Shark, wayPointsWorld[0], Quaternion.identity);
         Mob sharkMob = sharkObject.GetComponent<Mob>();
@@ -94,6 +96,7 @@ public class MobSpawner : MonoBehaviour
         sharkMob.name = "Mob_" + mobId;
         sharkMob.Initialize(mobType, "Characters/Shark", wayPointsWorld, mobId, this);
         sharkMob.health = Hp;
+        sharkMob.speed = speed;
     }
 
     List<Vector2Int> GetDefaultWayPoints()
