@@ -83,10 +83,11 @@ public class Mob : MonoBehaviour
 
     private void Die()
     {
+        _spawner.NotifyDie();
+        
         //Destroy job
         _isDestroying = true;
         Destroy(this.gameObject);
 
-        _spawner.NotifyDie();
     }
 }

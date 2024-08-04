@@ -25,6 +25,8 @@ public class GameState : MonoBehaviour
     public GameObject UICanvas;
     public GameObject CardPickingPanel;
     public GameObject GameEndPanel;
+    public GameObject Text_Lift;
+    public GameObject Text_Stage;
 
     void Awake()
     {
@@ -69,7 +71,7 @@ public class GameState : MonoBehaviour
     {
         
     }
-    public void SetPickingPhase(EGamePhase InPhase)
+    public void SetGamePhase(EGamePhase InPhase)
     {
         currentPhase = InPhase;
 
@@ -98,16 +100,16 @@ public class GameState : MonoBehaviour
         lifeRemain += delta;
         if (lifeRemain <= 0)
         {
-            SetPickingPhase(EGamePhase.GameEnd);
+            SetGamePhase(EGamePhase.GameEnd);
         }
         
-        GameObject.Find("Text_Life").GetComponent<TMPro.TextMeshProUGUI>().text = "life : " + lifeRemain.ToString();
+        Text_Lift.GetComponent<TMPro.TextMeshProUGUI>().text = "life : " + lifeRemain.ToString();
     }
 
     public void OnIncreaseStage()
     {
         curStage++;
         
-        GameObject.Find("Text_Stage").GetComponent<TMPro.TextMeshProUGUI>().text = "stage : " + curStage.ToString();
+        Text_Stage.GetComponent<TMPro.TextMeshProUGUI>().text = "stage : " + curStage.ToString();
     }
 }

@@ -20,7 +20,7 @@ public class ButtonConfirm : MonoBehaviour, IPointerDownHandler
         DeckMadeType madeType = CardUtil.Evaluate(ref hand);
         GameState.Instance.nextTowerLevel = (int)madeType;
         
-        GameState.Instance.SetPickingPhase(EGamePhase.Battle);
+        GameState.Instance.SetGamePhase(EGamePhase.Battle);
     }
     
     void Start()
