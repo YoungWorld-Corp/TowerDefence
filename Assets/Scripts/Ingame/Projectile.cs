@@ -21,12 +21,12 @@ namespace Ingame
             _ownerTowerID = ownerTowerID;
             _targetMobID = targetMobID;
 
-            _targetComponent = GameObject.Find("Mob" + _targetMobID).GetComponent<Mob>();
+            _targetComponent = GameObject.Find("Mob_" + _targetMobID).GetComponent<Mob>();
         }
         
         private void Update()
         {
-            _targetPos = GameObject.Find("Mob" + _targetMobID).transform.position;
+            _targetPos = GameObject.Find("Mob_" + _targetMobID).transform.position;
             
             Vector3 dir = _targetPos - transform.position;
             transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);

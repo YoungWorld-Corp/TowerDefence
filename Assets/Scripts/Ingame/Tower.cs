@@ -21,24 +21,36 @@ public class Tower : MonoBehaviour
 
     private void Awake()
     {
-        imgProjectile = Resources.Load("Prefabs/Projectiles/CommonProjectile") as GameObject;
-        _attackCooldown = 0.5f;
-        _attackRadius = 5;
+
     }
 
     void Start()
     {
+        imgProjectile = Resources.Load("Prefabs/Projectiles/CommonProjectile") as GameObject;
+        Debug.Log(imgProjectile);
         
+        _attackCooldown = 0.5f;
+        _attackRadius = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _cooldownTimer += Time.deltaTime;
-        if (_cooldownTimer >= _attackCooldown)
+        var Mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
+        foreach (var mob in Mobs)
         {
-            _cooldownTimer = 0f;
-            SpawnProjectile(0);
+            // 사거리 체크
+            if (Vector3.Distance(mob.transform.position, transform.position) <= _attackRadius)
+            {
+                _cooldownTimer += Time.deltaTime;
+                if (_cooldownTimer >= _attackCooldown)
+                {
+                    _cooldownTimer = 0f;
+                    SpawnProjectile(mob.GetID());
+
+                    break;
+                }
+            }
         }
     }
 
@@ -49,7 +61,7 @@ public class Tower : MonoBehaviour
 
     private void SpawnProjectile(int targetMobId)
     {
-        GameObject projectile =  Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
+        GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
         Projectile towerProjectile = projectile.GetComponent<Projectile>();
         towerProjectile.Initialize(id, 10, targetMobId);
     }

@@ -72,6 +72,11 @@ public class Mob : MonoBehaviour
             Die();
         }
     }
+    
+    public int GetID()
+    {
+        return id;
+    }
 
     private void Die()
     {
