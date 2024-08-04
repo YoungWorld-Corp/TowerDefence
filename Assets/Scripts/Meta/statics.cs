@@ -37,7 +37,11 @@ public class Meta
                 return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_4");
             case 5: 
                 return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_5");
-            case 6: case 7: case 8: case 9: case 10:case 11: case 12: case 13:
+            case 6: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_6");
+            case 7: case 8: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/SplashProjectile_6");
+            case 9: case 10:case 11: case 12: case 13:
                 return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_6");
             default:
                 return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_0");

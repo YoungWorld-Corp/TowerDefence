@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1115026019322186814}
   - component: {fileID: 952932676804382712}
   - component: {fileID: -5945852914474343158}
+  - component: {fileID: -1918301424418101534}
   m_Layer: 0
   m_Name: Tower8
   m_TagString: Untagged
@@ -95,8 +96,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6666065186519958404}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 209d25462294a0f4590e140483dab008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imgProjectile: {fileID: 0}
+--- !u!114 &-1918301424418101534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6666065186519958404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c7df7a719643be8be38e183b840990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imgProjectile: {fileID: 0}

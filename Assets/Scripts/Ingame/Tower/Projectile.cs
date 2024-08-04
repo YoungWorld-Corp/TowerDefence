@@ -5,14 +5,14 @@ namespace Ingame
 {
     public class Projectile : MonoBehaviour
     {
-        private int _damage;
-        private int _ownerTowerID;
-        private int _targetMobID;
+        protected int _damage;
+        protected int _ownerTowerID;
+        protected int _targetMobID;
         
         public float speed = 10f;
         
-        private Vector3 _targetPos;
-        private Mob _targetComponent; 
+        protected Vector3 _targetPos;
+        protected Mob _targetComponent; 
         
         
         public void Initialize(int ownerTowerID, int damage, int targetMobID)
@@ -24,7 +24,7 @@ namespace Ingame
             _targetComponent = GameObject.Find("Mob_" + _targetMobID).GetComponent<Mob>();
         }
         
-        private void Update()
+        protected void Update()
         {
             if (!_targetComponent)
             {
@@ -43,7 +43,7 @@ namespace Ingame
             }
         }
 
-        private void HitTask()
+        protected void HitTask()
         {
             //TODO : spawn hit particle
             _targetComponent.TakeDamage(_damage);

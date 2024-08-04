@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ingame;
 using UnityEngine;
 
 public class TowerSpawner : MonoBehaviour
@@ -28,6 +29,15 @@ public class TowerSpawner : MonoBehaviour
         towerPrefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + level.ToString());
 
         GameObject tower = Instantiate(towerPrefab, cellPos, Quaternion.identity);
-        tower.GetComponent<Tower>().SetData(level, false);
+        if (level ==3 || level == 4)
+        {
+            tower.GetComponent<SplashTower>().SetData(level, false);
+        } else if (level == 7 || level == 8)
+        {
+            tower.GetComponent<SplashTower>().SetData(level, false);
+        } else
+        {
+            tower.GetComponent<Tower>().SetData(level, false);    
+        }
     }
 }

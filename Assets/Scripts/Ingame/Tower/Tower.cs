@@ -6,21 +6,21 @@ using Ingame;
 
 public class Tower : MonoBehaviour
 {
-    int id;
-    private int _level;
-    private int _damage;
-    private float _attackCooldown; // seconds
-    private float _cooldownTimer = 0f;
+    protected int id;
+    protected int _level;
+    protected int _damage;
+    protected float _attackCooldown; // seconds
+    protected float _cooldownTimer = 0f;
     
-    private int _attackRadius;
-    private bool _bDisplayMode = false;
+    protected int _attackRadius;
+    protected bool _bDisplayMode = false;
     
     // prefabs
     public GameObject imgProjectile;
     
     // Start is called before the first frame update
 
-    private void Awake()
+    protected void Awake()
     {
 
     }
@@ -65,7 +65,7 @@ public class Tower : MonoBehaviour
         imgProjectile = Meta.ProjectileFromLevel(level);
     }
 
-    private void SpawnProjectile(int targetMobId, int damage)
+    protected void SpawnProjectile(int targetMobId, int damage)
     {
         GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
         Projectile towerProjectile = projectile.GetComponent<Projectile>();
