@@ -9,6 +9,7 @@ public class Mob : MonoBehaviour
 
     private Vector3 target;
     private int waypointIndex = 0;
+    private MobSpawner _spawner = null;
     
     List<Vector3> wayPoints;
 
@@ -27,11 +28,12 @@ public class Mob : MonoBehaviour
         }
     }
 
-    public void Initialize(int mobId, string resourcePath, List<Vector3> wayPoints)
+    public void Initialize(int mobId, string resourcePath, List<Vector3> wayPoints, MobSpawner spawner)
     {
         transform.Translate(wayPoints[0]);
         SetSpriteRenderer(resourcePath);
         this.wayPoints = wayPoints;
+        this._spawner = spawner;
         target = wayPoints[1];
     }
 
@@ -72,5 +74,7 @@ public class Mob : MonoBehaviour
     {
         //Destroy job
         Destroy(gameObject);
+
+        _spawner.NotifyDie();
     }
 }

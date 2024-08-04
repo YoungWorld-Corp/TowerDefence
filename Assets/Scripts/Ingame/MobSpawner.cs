@@ -3,18 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+struct MobSpawnRule
+{
+    public int mobId;
+    public int num;
+    public float time;
+    public float delta;
+
+    public MobSpawnRule(int mobId, int num, float time, float delta)
+    {
+        this.mobId=mobId;
+        this.num=num;
+        this.time=time;
+        this.delta=delta;
+    }
+}
+struct SpawnState
+{
+    public int remain;
+    public SpawnState(MobSpawnRule spawnRule)
+    {
+        remain = spawnRule.num;
+    }
+}
+
 public class MobSpawner : MonoBehaviour
 {
     public Tilemap tilemap;
     public GameObject Prefab_Shark;
     MobSpawnRule spawnRule;
     List<Vector3> wayPointsWorld;
+    SpawnState spawnState;
+
     
 
     // Start is called before the first frame update
     void Start()
     {
         spawnRule = new MobSpawnRule(0, 10, 1, 0);
+        spawnState = new SpawnState(spawnRule);
 
         TilemapGenerator tilemapGenerator = GetComponentInParent<TilemapGenerator>();
         List<Vector2Int> wayPoints = GetDefaultWayPoints();
@@ -39,7 +66,7 @@ public class MobSpawner : MonoBehaviour
     {
         GameObject sharkPrefab =  Instantiate(Prefab_Shark, wayPointsWorld[0], Quaternion.identity);
         Mob sharkMob = sharkPrefab.GetComponent<Mob>() as Mob;
-        sharkMob.Initialize(mobId, "Characters/Shark", wayPointsWorld);
+        sharkMob.Initialize(mobId, "Characters/Shark", wayPointsWorld, this);
     }
 
     List<Vector2Int> GetDefaultWayPoints()
@@ -74,20 +101,13 @@ public class MobSpawner : MonoBehaviour
         }
         return worldWayPoints;
     }
-}
 
-struct MobSpawnRule
-{
-    public int mobId;
-    public int num;
-    public float time;
-    public float delta;
-
-    public MobSpawnRule(int mobId, int num, float time, float delta)
+    public void NotifyDie()
     {
-        this.mobId=mobId;
-        this.num=num;
-        this.time=time;
-        this.delta=delta;
+        spawnState.remain--;
+        if (spawnState.remain == 0)
+        {
+            GameState.Instance.SetPickingPhase(true);
+        }
     }
 }
