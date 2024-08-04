@@ -34,7 +34,7 @@ public class GameState : MonoBehaviour
     {
         get
         {
-            if (null == instance)
+            if (!instance)
             {
                 return null;
             }

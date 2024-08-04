@@ -27,14 +27,14 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
         string resStr = "";
         foreach (Card card in result)
         {
-            resStr += " \n"+ card.ToString();
+            resStr += " \n"+ card;
         }
         card5Panel.SetCardImages(result);
 
         DeckMadeType type = CardUtil.Evaluate(ref result);
 
         GameObject.Find("Text_noti_pro").GetComponent<TMPro.TextMeshProUGUI>().text = type.ToString();
-        GameObject.Find("Text_Remain").GetComponent<TMPro.TextMeshProUGUI>().text = "Remain : " + GlobalInstance.GetInstance().GetUser().remainChance.ToString();
+        GameObject.Find("Text_Remain").GetComponent<TMPro.TextMeshProUGUI>().text = "Remain : " + GlobalInstance.GetInstance().GetUser().remainChance;
 
     }
     void Start()
