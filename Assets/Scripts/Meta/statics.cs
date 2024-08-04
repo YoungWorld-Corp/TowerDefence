@@ -21,6 +21,28 @@ public class Meta
     }
 
 
+    public static GameObject ProjectileFromLevel(int level)
+    {
+        switch (level)
+        {
+            case 0: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_0");
+            case 1: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_1");
+            case 2: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_2");
+            case 3:
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_3");
+            case 4: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_4");
+            case 5: 
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_5");
+            case 6: case 7: case 8: case 9: case 10:case 11: case 12: case 13:
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_6");
+            default:
+                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_0");
+        }
+    }
     
     public static int TowerAttackRadisFromLevel(int level)
     {
