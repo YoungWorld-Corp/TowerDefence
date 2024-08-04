@@ -6,6 +6,7 @@ public class GameState : MonoBehaviour
 {
     private static GameState instance = null;
     public MobSpawner mobSpawner;
+    public ButtonPick buttonPick;
 
     public int nextTowerLevel { get; set; }
 
@@ -52,6 +53,8 @@ public class GameState : MonoBehaviour
         {
             UICanvas.SetActive(false);
             mobSpawner.StartPhase();
+            buttonPick.RefreshCard();
+            GlobalInstance.GetInstance().GetUser().OnNewPhase();
         }
     }
 }

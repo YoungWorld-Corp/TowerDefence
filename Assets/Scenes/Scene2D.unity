@@ -184,6 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3852d9b75cdcff4684d09fd84bc8892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobSpawner: {fileID: 0}
+  buttonPick: {fileID: 1491696289}
   UICanvas: {fileID: 803632220}
 --- !u!4 &181757801
 Transform:

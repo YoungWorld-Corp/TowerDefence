@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mono.Cecil;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -15,7 +16,7 @@ public class MouseEventManager : MonoBehaviour
     private RaycastHit hit;
 
     public GameObject hoveredTower;
-    public int hoveredTowerLevel;
+    public int hoveredTowerLevel = -1;
 
     private void Awake()
     {
@@ -23,7 +24,6 @@ public class MouseEventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -55,16 +55,46 @@ public class MouseEventManager : MonoBehaviour
             // }
         }
 
-        // if (hoveredTowerLevel != GameState.Instance.nextTowerLevel)
-        // {
-        //     // Change sprite
-        //     hoveredTower.
-        // }
-        // Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        // Vector3Int c0 = tilemap.WorldToCell(mousePos);
+        if (hoveredTowerLevel != GameState.Instance.nextTowerLevel)
+        {
+            // Change sprite
+            hoveredTowerLevel = GameState.Instance.nextTowerLevel;
+            if (hoveredTowerLevel >= 0)
+            {
+                var prefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + hoveredTowerLevel.ToString());
+                
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 location = tilemap.WorldToCell(mousePos);
+                location.x += 0.5f;
+                location.y += 0.5f;
 
-        // hoveredTower.transform.position = c0;
-        // Resources.Load()
-        // hoveredTower.GetComponent<Tower>() 
+                if (hoveredTower)
+                {
+                    Destroy(hoveredTower);
+                }
+                hoveredTower = Instantiate(prefab, location, Quaternion.identity);
+                
+                SpriteRenderer renderer = hoveredTower.GetComponent<SpriteRenderer>();
+                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.3f);
+
+                Tower tower = prefab.GetComponent<Tower>();
+                tower.SetData(hoveredTowerLevel, true);
+            }
+            else
+            {
+                SpriteRenderer renderer = hoveredTower.GetComponent<SpriteRenderer>();
+                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0f);
+            }
+        }
+
+        if (hoveredTower)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 location = tilemap.WorldToCell(mousePos);
+            location.x += 0.5f;
+            location.y += 0.5f;
+
+            hoveredTower.transform.position = location;
+        }
     }
 }

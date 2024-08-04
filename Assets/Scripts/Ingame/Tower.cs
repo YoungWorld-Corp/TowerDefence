@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour
     private float _cooldownTimer = 0f;
     
     private int _attackRadius;
+    private bool _bDisplayMode = false;
     
     // prefabs
     public GameObject imgProjectile;
@@ -33,6 +34,8 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_bDisplayMode) return;
+        
         var Mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
         foreach (var mob in Mobs)
         {
@@ -51,13 +54,14 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void SetData(int level)
+    public void SetData(int level, bool bDisplayMode = false)
     {
         _level = level;
         // int to enum
         _damage = (int)Meta.TowerDamageFromLevel(level);
         _attackCooldown = Meta.TowerAttackCooldownFromLevel(level);
         _attackRadius = Meta.TowerAttackRadisFromLevel(level);
+        _bDisplayMode = bDisplayMode;
     }
 
     private void SpawnProjectile(int targetMobId, int damage)
