@@ -9,8 +9,6 @@ public class Mob : MonoBehaviour
 
     private Vector3 target;
     private int waypointIndex = 0;
-
-    public MobHealth  Health { get; set; }
     
     List<Vector3> wayPoints;
 
@@ -48,7 +46,7 @@ public class Mob : MonoBehaviour
     {
         if (waypointIndex >= wayPoints.Count - 1)
         {
-            Destroy(gameObject);
+            Die();
             return;
         }
 
@@ -56,10 +54,9 @@ public class Mob : MonoBehaviour
         
         target = wayPoints[waypointIndex];
     }
-}
-
-public class MobHealth: MonoBehaviour
-{
+    
+    //health
+    
     public float health = 100f;
 
     public void TakeDamage(float amount)
@@ -71,7 +68,7 @@ public class MobHealth: MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         //Destroy job
         Destroy(gameObject);
