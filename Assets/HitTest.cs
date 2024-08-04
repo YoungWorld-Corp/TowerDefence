@@ -16,7 +16,7 @@ public class HitTest : MonoBehaviour
         var collider = GetComponent<Collider2D>();
         var contactFilter = new ContactFilter2D();
         var hits = new List<Collider2D>();
-        collider.OverlapCollider(contactFilter, hits);
+        collider.Overlap(contactFilter, hits);
 
         if (hits.Count != 0)
         {
