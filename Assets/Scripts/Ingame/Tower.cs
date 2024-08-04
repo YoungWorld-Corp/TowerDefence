@@ -27,8 +27,7 @@ public class Tower : MonoBehaviour
 
     void Start()
     {
-        imgProjectile = Resources.Load("Prefabs/Projectiles/CommonProjectile") as GameObject;
-        Debug.Log(imgProjectile);
+
     }
 
     // Update is called once per frame
@@ -62,6 +61,8 @@ public class Tower : MonoBehaviour
         _attackCooldown = Meta.TowerAttackCooldownFromLevel(level);
         _attackRadius = Meta.TowerAttackRadisFromLevel(level);
         _bDisplayMode = bDisplayMode;
+
+        imgProjectile = Meta.ProjectileFromLevel(level);
     }
 
     private void SpawnProjectile(int targetMobId, int damage)
