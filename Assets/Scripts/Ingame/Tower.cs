@@ -1,26 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ingame;
 
 public class Tower : MonoBehaviour
 {
     int id;
-    int level;
+    private float _attackSpeed;
+    
+    // prefabs
+    public GameObject prefabProjectile;
     
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        prefabProjectile = Resources.Load("Prefabs/") as GameObject;
+    }
+
     void Start()
     {
         
     }
 
-    void SetImage()
+    // Update is called once per frame
+    void Update()
     {
 
     }
     
-    // Update is called once per frame
-    void Update()
+    public void SpawnProjectile(List<Vector3> wayPointsWorld)
     {
-        
+        GameObject projectile =  Instantiate(prefabProjectile, gameObject.transform.position, Quaternion.identity);
+        Projectile towerProjectile = projectile.GetComponent<Projectile>() as Projectile;
+        towerProjectile.Initialize(id, 10);
     }
 }
