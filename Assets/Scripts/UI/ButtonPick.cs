@@ -26,7 +26,7 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
         }
         card5Panel.SetCardImages(result);
 
-        DeckMadeType type = CardUtil.Evaluate(result);
+        DeckMadeType type = CardUtil.Evaluate(ref result);
 
         GameObject.Find("Text_noti_pro").GetComponent<TMPro.TextMeshProUGUI>().text = type.ToString();
 

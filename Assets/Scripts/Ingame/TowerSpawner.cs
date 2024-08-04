@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TowerSpawner : MonoBehaviour
 {
-    public GameObject tower1Prefab;
     private bool isSpawningTime;
     private int towerId;
 
@@ -20,10 +19,16 @@ public class TowerSpawner : MonoBehaviour
         
     }
 
-    public void SpawnTower(Vector3 cellPos)
+    public void SpawnTower(Vector3 cellPos, int level)
     {
         cellPos.x += 0.5f;
         cellPos.y += 0.5f;
-        Instantiate(tower1Prefab, cellPos, Quaternion.identity);
+        
+        GameObject towerPrefab;
+        towerPrefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + level.ToString());
+        Tower tower = towerPrefab.GetComponent<Tower>();
+        tower.SetData(level);
+
+        Instantiate(towerPrefab, cellPos, Quaternion.identity);
     }
 }

@@ -125,15 +125,15 @@ public class CardUtil : Card
     /**
      * Essential : With Sorted Deck
      */
-    public static DeckMadeType Evaluate(List<Card> deck)
+    public static DeckMadeType Evaluate(ref List<Card> InDeck)
     {
-        if (deck.Count != 5)
+        if (InDeck.Count != 5)
         {
             Debug.LogError("Deck Size is not 5");
             return DeckMadeType.None;
         }
 
-        deck = SortCardList(deck);
+        List<Card> deck = SortCardList(InDeck);
         
         //Check Royal Straight Flush
         if (deck[0].Number == 1 && deck[1].Number == 10 && deck[2].Number == 11 && deck[3].Number == 12 && deck[4].Number == 13)
