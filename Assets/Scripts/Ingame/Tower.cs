@@ -31,7 +31,7 @@ public class Tower : MonoBehaviour
 
     }
 
-    void SetData(int level)
+    public void SetData(int level)
     {
         _level = level;
     }
