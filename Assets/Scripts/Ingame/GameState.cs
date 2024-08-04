@@ -30,7 +30,7 @@ public class GameState : MonoBehaviour
 
     void Awake()
     {
-        if (null == instance)
+        if (!instance)
         {
             instance = this;
             OnGameStart();
