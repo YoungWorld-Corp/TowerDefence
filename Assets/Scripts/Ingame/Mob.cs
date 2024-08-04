@@ -10,6 +10,7 @@ public class Mob : MonoBehaviour
     private Vector3 target;
     private int waypointIndex = 0;
     private MobSpawner _spawner = null;
+    private int id;
     
     List<Vector3> wayPoints;
 
@@ -20,7 +21,7 @@ public class Mob : MonoBehaviour
     void Update()
     {
         Vector3 dir = target - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);
 
         if (Vector3.Distance(transform.position, target) <= 0.05f)
         {
@@ -28,13 +29,15 @@ public class Mob : MonoBehaviour
         }
     }
 
-    public void Initialize(int mobId, string resourcePath, List<Vector3> wayPoints, MobSpawner spawner)
+    public void Initialize(MobType mobType, string resourcePath, List<Vector3> wayPoints, int mobId, MobSpawner spawner)
     {
         transform.Translate(wayPoints[0]);
         SetSpriteRenderer(resourcePath);
         this.wayPoints = wayPoints;
         this._spawner = spawner;
         target = wayPoints[1];
+
+        id = mobId;
     }
 
     void SetSpriteRenderer(string resourcePath)

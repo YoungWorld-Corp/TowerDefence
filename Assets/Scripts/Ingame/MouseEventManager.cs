@@ -36,7 +36,7 @@ public class MouseEventManager : MonoBehaviour
                 return;
             }
             
-            if (GameState.Instance.nextTowerLevel <= 0) return;
+            if (GameState.Instance.nextTowerLevel < 0) return;
 
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int c0 = tilemap.WorldToCell(mouseWorldPos);
