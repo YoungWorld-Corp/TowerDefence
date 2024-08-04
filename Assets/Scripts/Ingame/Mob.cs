@@ -5,8 +5,24 @@ using UnityEngine;
 public class Mob : MonoBehaviour
 {
     
-    public int health = 50;
-    public float speed = 5f;
+    protected int health = 50;
+    protected float speed = 5f;
+
+    public int Health
+    {
+        get { return health; } 
+        set { health = value; }
+    }
+    public float Speed
+    {
+        get { return speed; }
+        set
+        {
+            speed = value;
+            _originSpeed = value;
+        }
+    }
+    protected float _originSpeed;  
 
     private Vector3 target;
     private int waypointIndex = 0;
@@ -15,6 +31,8 @@ public class Mob : MonoBehaviour
     
     List<Vector3> wayPoints;
     private bool _isDestroying = false;
+    
+    private CcStatus _ccStatus; 
 
     void Start()
     {
@@ -23,6 +41,8 @@ public class Mob : MonoBehaviour
     void Update()
     {
         if (_isDestroying) return;
+        
+        CheckCC();
 
         Vector3 dir = target - transform.position;
         transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);
@@ -76,9 +96,69 @@ public class Mob : MonoBehaviour
         }
     }
     
+    public void TakeCc(CcStatus status)
+    {
+        if (status.slowDuration > 0)
+        {
+            _ccStatus.slowRate = status.slowRate;
+            _ccStatus.slowDuration = status.slowDuration;
+        }
+        
+        if (status.poisonDuration > 0)
+        {
+            _ccStatus.poisonRate = status.poisonRate;
+            _ccStatus.poisonDuration = status.poisonDuration;
+        }
+        
+        if (status.stunDuration > 0)
+        {
+            _ccStatus.stunDuration = status.stunDuration;
+        }
+    }
+    
     public int GetID()
     {
         return id;
+    }
+    
+    private void CheckCC()
+    {
+        if (_ccStatus.slowDuration > 0)
+        {
+            if (Mathf.Approximately(speed, _originSpeed))
+            {
+                speed *= _ccStatus.slowRate;;
+            }
+            
+            _ccStatus.slowDuration -= Time.deltaTime;
+            if (_ccStatus.slowDuration <= 0)
+            {
+                speed = _originSpeed;
+            }
+        }
+        
+        if (_ccStatus.poisonDuration > 0)
+        {
+            _ccStatus.poisonDuration -= Time.deltaTime;
+            if (_ccStatus.poisonDuration <= 0)
+            {
+                health -= (int)(_ccStatus.poisonRate * _ccStatus.poisonDuration);
+            }
+        }
+        
+        if (_ccStatus.stunDuration > 0)
+        {
+            if (speed != 0)
+            {
+                speed = 0f;
+            }
+            
+            _ccStatus.stunDuration -= Time.deltaTime;
+            if (_ccStatus.stunDuration <= 0)
+            {
+                speed = _originSpeed;
+            }
+        }
     }
 
     private void Die()
@@ -88,6 +168,16 @@ public class Mob : MonoBehaviour
         //Destroy job
         _isDestroying = true;
         Destroy(this.gameObject);
-
     }
+}
+
+public struct CcStatus
+{
+    public float slowRate;
+    public float slowDuration;
+    
+    public float poisonRate;
+    public float poisonDuration;
+    
+    public float stunDuration;
 }

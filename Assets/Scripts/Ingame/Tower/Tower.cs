@@ -59,7 +59,7 @@ public class Tower : MonoBehaviour
         // int to enum
         _damage = (int)Meta.TowerDamageFromLevel(level);
         _attackCooldown = Meta.TowerAttackCooldownFromLevel(level);
-        _attackRadius = Meta.TowerAttackRadisFromLevel(level);
+        _attackRadius = Meta.TowerAttackRadiusFromLevel(level);
         _bDisplayMode = bDisplayMode;
 
         imgProjectile = Meta.ProjectileFromLevel(level);

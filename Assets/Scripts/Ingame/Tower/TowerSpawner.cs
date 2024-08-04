@@ -29,7 +29,11 @@ public class TowerSpawner : MonoBehaviour
         towerPrefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + level.ToString());
 
         GameObject tower = Instantiate(towerPrefab, cellPos, Quaternion.identity);
-        if (level ==3 || level == 4)
+        if (level == 0 )
+        {
+            tower.GetComponent<SlowTower>().SetData(level, false);
+        }
+        else if (level ==3 || level == 4)
         {
             tower.GetComponent<SplashTower>().SetData(level, false);
         } else if (level == 7 || level == 8)

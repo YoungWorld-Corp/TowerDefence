@@ -26,7 +26,7 @@ public class Meta
         switch (level)
         {
             case 0: 
-                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_0");
+                return (GameObject)Resources.Load("Prefabs/Projectiles/SlowProjectile_0");
             case 1: 
                 return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_1");
             case 2: 
@@ -48,7 +48,7 @@ public class Meta
         }
     }
     
-    public static int TowerAttackRadisFromLevel(int level)
+    public static int TowerAttackRadiusFromLevel(int level)
     {
         switch (level)
         {
@@ -67,7 +67,9 @@ public class Meta
     {
         switch (level)
         {
-            case 0: case 1:
+            case 0:
+                return 2f;
+            case 1:
                 return 0.5f;
             case 2: case 3:
                 return 0.3f;
