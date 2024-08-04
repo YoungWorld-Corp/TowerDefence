@@ -20,7 +20,7 @@ public class HitTest : MonoBehaviour
 
         if (hits.Count != 0)
         {
-            Debug.Log("HitTest::Update() hits.Count = " + hits.Count);
+            // Debug.Log("HitTest::Update() hits.Count = " + hits.Count);
         } 
     }
 }

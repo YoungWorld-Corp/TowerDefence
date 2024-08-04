@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class ButtonSort : MonoBehaviour, IPointerDownHandler
+public class ButtonConfirm : MonoBehaviour, IPointerDownHandler
 {
     public Card5Panel Card5Panel;
 
@@ -17,12 +17,9 @@ public class ButtonSort : MonoBehaviour, IPointerDownHandler
         GlobalInstance instance = GlobalInstance.GetInstance();
         List<Card> hand = instance.GetUser().GetHand();
         
-        hand = CardUtil.SortCardList(hand);
-        instance.GetUser().UpdateHand(hand);
-        
-        
-        // ? card5Panel Why null?
-        Card5Panel.SetCardImages(hand);
+        DeckMadeType madeType = CardUtil.Evaluate(ref hand);
+        GameState.Instance.nextTowerLevel = (int)madeType;
+        GameState.Instance.SetPickingPhase(false);
     }
     
     void Start()

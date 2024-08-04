@@ -7,6 +7,8 @@ using Ingame;
 public class Tower : MonoBehaviour
 {
     int id;
+    private float _attackSpeed;
+    private int _level;
     private float _attackCooldown; // seconds
     private float _cooldownTimer = 0f;
     
@@ -39,7 +41,12 @@ public class Tower : MonoBehaviour
             SpawnProjectile(0);
         }
     }
-    
+
+    void SetData(int level)
+    {
+        _level = level;
+    }
+
     private void SpawnProjectile(int targetMobId)
     {
         GameObject projectile =  Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
