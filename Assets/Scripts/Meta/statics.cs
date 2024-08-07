@@ -5,7 +5,7 @@ public class Meta
     public enum TowerDamage
     {
         Level0 = 30,
-        Level1 = 40,
+        Level1 = 50,
         Level2 = 50,
         Level3 = 70,
         Level4 = 80,
@@ -28,7 +28,7 @@ public class Meta
             case 0: 
                 return (GameObject)Resources.Load("Prefabs/Projectiles/SlowProjectile_0");
             case 1: 
-                return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_1");
+                return (GameObject)Resources.Load("Prefabs/Projectiles/StunProjectile_1");
             case 2: 
                 return (GameObject)Resources.Load("Prefabs/Projectiles/Projectile_2");
             case 3:

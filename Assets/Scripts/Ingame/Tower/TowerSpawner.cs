@@ -33,6 +33,10 @@ public class TowerSpawner : MonoBehaviour
         {
             tower.GetComponent<SlowTower>().SetData(level, false);
         }
+        else if (level == 1)
+        {
+            tower.GetComponent<StunTower>().SetData(level, false);
+        }
         else if (level ==3 || level == 4)
         {
             tower.GetComponent<SplashTower>().SetData(level, false);
