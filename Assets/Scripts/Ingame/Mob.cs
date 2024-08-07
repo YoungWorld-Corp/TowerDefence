@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
-    
+    protected int max_health = 50;
     protected int health = 50;
     protected float speed = 5f;
+
+    protected HPBar hp_bar;
 
     public int Health
     {
@@ -53,7 +55,15 @@ public class Mob : MonoBehaviour
         }
     }
 
-    public void Initialize(MobType mobType, string resourcePath, List<Vector3> wayPoints, int mobId, MobSpawner spawner)
+    public void Initialize(
+        MobType mobType,
+        string resourcePath,
+        List<Vector3> wayPoints,
+        int mobId,
+        MobSpawner spawner,
+        int health,
+        float speed
+    )
     {
         transform.Translate(wayPoints[0]);
         SetSpriteRenderer(resourcePath);
@@ -62,6 +72,12 @@ public class Mob : MonoBehaviour
         target = wayPoints[1];
 
         id = mobId;
+        this.health = health;
+        this.max_health = health;
+        this.speed = speed;
+
+        hp_bar = GetComponentInChildren<HPBar>();
+        hp_bar.SetHP(1f);
     }
 
     void SetSpriteRenderer(string resourcePath)
@@ -90,6 +106,7 @@ public class Mob : MonoBehaviour
     public void TakeDamage(int amount)
     {
         health -= amount;
+        hp_bar.SetHP((float)health/max_health);
         if (health <= 0f)
         {
             Die();

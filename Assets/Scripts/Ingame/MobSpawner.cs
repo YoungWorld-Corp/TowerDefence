@@ -94,9 +94,7 @@ public class MobSpawner : MonoBehaviour
 
         int mobId = spawnRule.GetNextMobId();
         sharkMob.name = "Mob_" + mobId;
-        sharkMob.Initialize(mobType, "Characters/Shark", wayPointsWorld, mobId, this);
-        sharkMob.Health = Hp;
-        sharkMob.Speed = speed;
+        sharkMob.Initialize(mobType, "Characters/Shark", wayPointsWorld, mobId, this, Hp, speed);
     }
 
     List<Vector2Int> GetDefaultWayPoints()
