@@ -13,6 +13,7 @@ public class GameState : MonoBehaviour
 {
     private static GameState instance = null;
     public MobSpawner mobSpawner;
+    public DamageTextSystem damageTextSystem;
     public ButtonPick buttonPick;
 
     public int nextTowerLevel { get; set; }

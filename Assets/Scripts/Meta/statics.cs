@@ -138,7 +138,7 @@ class MobData
             case 4:
                 return new MobSpawnRule(MobType.Shark, 40, 800, 3, 0.25f);
             case 5:
-                return new MobSpawnRule(MobType.Shark, 1, 100000, 0.5f, 0.2f);
+                return new MobSpawnRule(MobType.Shark, 1, 10000, 0.5f, 0.2f);
             case 6:
                 return new MobSpawnRule(MobType.Shark, 100, 3200, 3, 0.1f);
             case 7:
@@ -148,7 +148,7 @@ class MobData
             case 9:
                 return new MobSpawnRule(MobType.Shark, 200, 25600, 3, 0.05f);
             case 10:
-                return new MobSpawnRule(MobType.Shark, 200, 5120000, 1, 0.05f);
+                return new MobSpawnRule(MobType.Shark, 200, 512000, 1, 0.05f);
             case 11:
                 return new MobSpawnRule(MobType.Shark, 200, 102400, 3, 0.05f);
             case 12:

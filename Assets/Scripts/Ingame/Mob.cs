@@ -111,6 +111,10 @@ public class Mob : MonoBehaviour
         {
             Die();
         }
+        
+        GameState.Instance.damageTextSystem.AddDamageInfo(new DamageTextInfo(
+            amount, gameObject, 1
+        ));
     }
     
     public void TakeCc(CcStatus status)
