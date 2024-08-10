@@ -25,7 +25,7 @@ public class GameState : MonoBehaviour
     public GameObject UICanvas;
     public GameObject CardPickingPanel;
     public GameObject GameEndPanel;
-    public GameObject Text_Lift;
+    public GameObject Text_Life;
     public GameObject Text_Stage;
 
     void Awake()
@@ -103,7 +103,7 @@ public class GameState : MonoBehaviour
             SetGamePhase(EGamePhase.GameEnd);
         }
         
-        Text_Lift.GetComponent<TMPro.TextMeshProUGUI>().text = "life : " + lifeRemain.ToString();
+        Text_Life.GetComponent<TMPro.TextMeshProUGUI>().text = "life : " + lifeRemain.ToString();
     }
 
     public void OnIncreaseStage()

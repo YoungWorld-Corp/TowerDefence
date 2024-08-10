@@ -74,7 +74,7 @@ public class Mob : MonoBehaviour
         id = mobId;
         this.health = health;
         this.max_health = health;
-        this.speed = speed;
+        this.Speed = speed;
 
         hp_bar = GetComponentInChildren<HPBar>();
         hp_bar.SetHP(1f);
@@ -144,7 +144,7 @@ public class Mob : MonoBehaviour
         {
             if (Mathf.Approximately(speed, _originSpeed))
             {
-                speed *= _ccStatus.slowRate;;
+                speed *= _ccStatus.slowRate;
             }
             
             _ccStatus.slowDuration -= Time.deltaTime;
