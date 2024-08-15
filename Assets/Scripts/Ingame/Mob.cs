@@ -184,6 +184,8 @@ public class Mob : MonoBehaviour
 
     private void Die()
     {
+        if (_isDestroying) return;
+        
         _spawner.NotifyDie();
         
         //Destroy job

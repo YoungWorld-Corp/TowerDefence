@@ -29,7 +29,7 @@ public class Tower : MonoBehaviour
     {
 
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -68,6 +68,8 @@ public class Tower : MonoBehaviour
     protected void SpawnProjectile(int targetMobId, int damage)
     {
         GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
+        projectile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
         Projectile towerProjectile = projectile.GetComponent<Projectile>();
         towerProjectile.Initialize(id, damage, targetMobId);
     }

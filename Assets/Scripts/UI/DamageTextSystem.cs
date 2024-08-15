@@ -67,6 +67,7 @@ public class DamageTextSystem : MonoBehaviour
     {
         int NumDamageInfo = _damageInfos.Count;
         int NumTextPool = _textPool.Count;
+
         for (int i=0; i<NumTextPool; i++)
         {
             if (i < NumDamageInfo)

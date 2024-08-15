@@ -31,6 +31,8 @@ namespace Ingame
         protected new void SpawnProjectile(int targetMobId, int damage)
         {
             GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
+            projectile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
             SlowProjectile towerProjectile = projectile.GetComponent<SlowProjectile>();
             
             var targetPos = GameObject.Find("Mob_" + targetMobId).GetComponent<Mob>().transform.position;
