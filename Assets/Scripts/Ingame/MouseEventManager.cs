@@ -36,13 +36,13 @@ public class MouseEventManager : MonoBehaviour
                 return;
             }
             
-            if (GameState.Instance.nextTowerLevel < 0) return;
+            if (GameState.Instance.nextDeckMade.deckMadeType < 0) return;
 
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int c0 = tilemap.WorldToCell(mouseWorldPos);
 
-            towerSpawner.SpawnTower(c0, GameState.Instance.nextTowerLevel);
-            GameState.Instance.nextTowerLevel = -1;
+            towerSpawner.SpawnTower(c0, GameState.Instance.nextDeckMade);
+            GameState.Instance.nextDeckMade = new DeckMade(DeckMadeType.None, -1);
             
             // ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -54,11 +54,12 @@ public class MouseEventManager : MonoBehaviour
             //     }
             // }
         }
-
-        if (hoveredTowerLevel != GameState.Instance.nextTowerLevel)
+        
+        int nextTowerLevel = (int)GameState.Instance.nextDeckMade.deckMadeType;
+        if (hoveredTowerLevel != nextTowerLevel)
         {
             // Change sprite
-            hoveredTowerLevel = GameState.Instance.nextTowerLevel;
+            hoveredTowerLevel = nextTowerLevel;
             if (hoveredTowerLevel >= 0)
             {
                 var prefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + hoveredTowerLevel.ToString());

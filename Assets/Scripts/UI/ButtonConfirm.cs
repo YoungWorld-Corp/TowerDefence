@@ -17,8 +17,8 @@ public class ButtonConfirm : MonoBehaviour, IPointerDownHandler
         GlobalInstance instance = GlobalInstance.GetInstance();
         List<Card> hand = instance.GetUser().GetHand();
         
-        DeckMadeType madeType = CardUtil.Evaluate(ref hand);
-        GameState.Instance.nextTowerLevel = (int)madeType;
+        DeckMade deckMade = CardUtil.Evaluate(ref hand);
+        GameState.Instance.nextDeckMade = deckMade;
         
         GameState.Instance.SetGamePhase(EGamePhase.Battle);
     }

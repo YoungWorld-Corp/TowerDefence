@@ -16,7 +16,7 @@ public class GameState : MonoBehaviour
     public DamageTextSystem damageTextSystem;
     public ButtonPick buttonPick;
 
-    public int nextTowerLevel { get; set; }
+    public DeckMade nextDeckMade { get; set; }
 
     public EGamePhase currentPhase;
     public int curStage;

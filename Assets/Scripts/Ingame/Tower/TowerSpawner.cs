@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ingame;
+using TMPro;
 using UnityEngine;
 
 public class TowerSpawner : MonoBehaviour
@@ -20,15 +21,20 @@ public class TowerSpawner : MonoBehaviour
         
     }
 
-    public void SpawnTower(Vector3 cellPos, int level)
+    public void SpawnTower(Vector3 cellPos, DeckMade deckMade)
     {
         cellPos.x += 0.5f;
         cellPos.y += 0.5f;
         
         GameObject towerPrefab;
-        towerPrefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + level.ToString());
+        int level = (int)deckMade.deckMadeType;
+        towerPrefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + level);
 
         GameObject tower = Instantiate(towerPrefab, cellPos, Quaternion.identity);
+        
+        TextMeshPro textpro = tower.GetComponentInChildren<TextMeshPro>();
+        if (textpro) textpro.text = deckMade.GetHighestNumberText();
+
         if (level == 0 )
         {
             tower.GetComponent<SlowTower>().SetData(level, false);
