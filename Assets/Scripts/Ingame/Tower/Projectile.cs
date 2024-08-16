@@ -1,4 +1,5 @@
 using System;
+using CartoonFX;
 using UnityEngine;
 
 namespace Ingame
@@ -12,7 +13,9 @@ namespace Ingame
         public float speed = 10f;
         
         protected Vector3 _targetPos;
-        protected Mob _targetComponent; 
+        protected Mob _targetComponent;
+
+        protected GameObject _effectParticle;
         
         
         public void Initialize(int ownerTowerID, int damage, int targetMobID)
@@ -22,6 +25,8 @@ namespace Ingame
             _targetMobID = targetMobID;
 
             _targetComponent = GameObject.Find("Mob_" + _targetMobID).GetComponent<Mob>();
+            
+            _effectParticle = (GameObject)Resources.Load("Prefabs/Effects/Fire/Hit Fire(Air)");
         }
         
         protected void Update()
@@ -42,12 +47,28 @@ namespace Ingame
                 HitTask();
             }
         }
+        
+        protected float spawnHitParticle()
+        {
+            
+            // spawn effectParticle
+            Instantiate(_effectParticle, _targetPos, Quaternion.identity);
+            _effectParticle.SetActive(true);
+            
+            var ps = _effectParticle.GetComponent<ParticleSystem>();
+            ps.Play(true);
+
+            // return particle duration
+            return ps.main.duration;
+        }
 
         protected void HitTask()
         {
             //TODO : spawn hit particle
             _targetComponent.TakeDamage(_damage);
-            Destroy(gameObject);
+            
+            var duration = spawnHitParticle();
+            Destroy(_effectParticle, duration);
         }
     }
 }
