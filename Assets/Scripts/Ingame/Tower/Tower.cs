@@ -36,7 +36,7 @@ public class Tower : MonoBehaviour
         if (_bDisplayMode) return;
 
         var Mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
-        foreach (var mob in Mobs)
+        foreach (Mob mob in Mobs)
         {
             // 사거리 체크
             if (Vector3.Distance(mob.transform.position, transform.position) <= _attackRadius)
@@ -45,7 +45,7 @@ public class Tower : MonoBehaviour
                 if (_cooldownTimer >= _attackCooldown)
                 {
                     _cooldownTimer = 0f;
-                    SpawnProjectile(mob.GetID(), _damage);
+                    SpawnProjectile(mob, RandomizeDamage(_damage));
 
                     break;
                 }
@@ -65,12 +65,20 @@ public class Tower : MonoBehaviour
         imgProjectile = Meta.ProjectileFromLevel(level);
     }
 
-    protected void SpawnProjectile(int targetMobId, int damage)
+    public int RandomizeDamage(int damage)
+    {
+        return (int)Mathf.Round(damage * UnityEngine.Random.Range(0.8f, 1.2f));
+    }
+
+    protected void SpawnProjectile(Mob targetMob, int damage)
     {
         GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
         projectile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
         Projectile towerProjectile = projectile.GetComponent<Projectile>();
-        towerProjectile.Initialize(id, damage, targetMobId);
+        Vector3 targetPosition = targetMob.transform.position;
+
+        // randomize damage
+        towerProjectile.InitializeProjectile(this, targetMob, damage, targetPosition);
     }
 }

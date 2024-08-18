@@ -21,7 +21,6 @@ public class ButtonPick : MonoBehaviour, IPointerDownHandler
     {
         //Output the name of the GameObject that is being clicked
         List<Card> result = GlobalInstance.GetInstance().GetUser().BatchDraw(5);
-        Debug.Log(" Game Object Click in Progress");
 
 
         string resStr = "";

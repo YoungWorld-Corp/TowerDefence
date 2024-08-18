@@ -11,7 +11,7 @@ namespace Ingame
             if (_bDisplayMode) return;
 
             var Mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
-            foreach (var mob in Mobs)
+            foreach (Mob mob in Mobs)
             {
                 // 사거리 체크
                 if (Vector3.Distance(mob.transform.position, transform.position) <= _attackRadius)
@@ -20,7 +20,7 @@ namespace Ingame
                     if (_cooldownTimer >= _attackCooldown)
                     {
                         _cooldownTimer = 0f;
-                        SpawnProjectile(mob.GetID(), _damage);
+                        SpawnProjectile(mob, RandomizeDamage(_damage));
 
                         break;
                     }
@@ -28,20 +28,20 @@ namespace Ingame
             }
         }
         
-        protected new void SpawnProjectile(int targetMobId, int damage)
+        protected new void SpawnProjectile(Mob targetMob, int damage)
         {
             GameObject projectile = Instantiate(imgProjectile, gameObject.transform.position, Quaternion.identity);
             projectile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             SlowProjectile towerProjectile = projectile.GetComponent<SlowProjectile>();
             
-            var targetPos = GameObject.Find("Mob_" + targetMobId).GetComponent<Mob>().transform.position;
+            Vector3 targetPos = targetMob.transform.position;
             
             CcStatus ccStatus = new CcStatus();
             ccStatus.slowRate = 0.5f;
             ccStatus.slowDuration = 2f;
             
-            towerProjectile.Initialize(id, damage, _splashRadius, targetPos, ccStatus);
+            towerProjectile.InitializeSlowProjectile(this, targetMob, damage, targetPos, _splashRadius, ccStatus);
         }
     }
 }

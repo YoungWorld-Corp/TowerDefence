@@ -1,5 +1,4 @@
 using System;
-using CartoonFX;
 using UnityEngine;
 
 namespace Ingame
@@ -8,67 +7,76 @@ namespace Ingame
     {
         protected int _damage;
         protected int _ownerTowerID;
-        protected int _targetMobID;
         
         public float speed = 10f;
         
-        protected Vector3 _targetPos;
-        protected Mob _targetComponent;
+        protected Vector3 _targetPos; // trace targetMobID if null.
+        protected Tower _ownerTower;
+        protected Mob _targetMob;
 
-        protected GameObject _effectParticle;
+        public GameObject effectParticle;
+        private GameObject _effectParticleSpawned;
         
         
-        public void Initialize(int ownerTowerID, int damage, int targetMobID)
+        public virtual void InitializeProjectile(Tower ownerTower , Mob mob, int damage, Vector3 targetPos, float in_speed = 10f)
         {
+            _ownerTower = ownerTower;
+            _targetMob = mob;
             _damage = damage;
-            _ownerTowerID = ownerTowerID;
-            _targetMobID = targetMobID;
+            _targetPos = targetPos;
+            speed = in_speed;
 
-            _targetComponent = GameObject.Find("Mob_" + _targetMobID).GetComponent<Mob>();
-            
-            _effectParticle = (GameObject)Resources.Load("Prefabs/Effects/Fire/Hit Fire(Air)");
+            //_effectParticle = (GameObject)Resources.Load("Prefabs/Effects/Fire/Hit Fire(Air)");
+        }
+
+        protected Vector3 GetTargetPosition()
+        {
+            return _targetPos;
         }
         
-        protected void Update()
+        protected virtual void Update()
         {
-            if (!_targetComponent)
+            if (!_targetMob)
             {
+                gameObject.SetActive(false);
                 Destroy(gameObject);
                 return;
             }
+
+            Vector3 targetPosition = GetTargetPosition(); 
             
-            _targetPos = GameObject.Find("Mob_" + _targetMobID).transform.position;
-            
-            Vector3 dir = _targetPos - transform.position;
+            Vector3 dir = targetPosition - transform.position;
             transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);
 
-            if (Vector3.Distance(transform.position, _targetPos) <= 0.05f)
+            if (Vector3.Distance(transform.position, targetPosition) <= 0.05f)
             {
                 HitTask();
             }
         }
         
-        protected float spawnHitParticle()
+        protected void spawnHitParticleWithDestoryReservation()
         {
-            
+            if (effectParticle == null) return;
+
             // spawn effectParticle
-            Instantiate(_effectParticle, _targetPos, Quaternion.identity);
-            _effectParticle.SetActive(true);
+            Vector3 targetPosition = GetTargetPosition(); 
+
+            _effectParticleSpawned = Instantiate(effectParticle, targetPosition, Quaternion.identity);
+            _effectParticleSpawned.SetActive(true);
             
-            var ps = _effectParticle.GetComponent<ParticleSystem>();
+            var ps = _effectParticleSpawned.GetComponent<ParticleSystem>();
             ps.Play(true);
 
-            // return particle duration
-            return ps.main.duration;
+            // reserve to destroy
+            Destroy(_effectParticleSpawned, ps.main.duration);
         }
 
-        protected void HitTask()
+        protected virtual void HitTask()
         {
             //TODO : spawn hit particle
-            _targetComponent.TakeDamage(_damage);
+            _targetMob.TakeDamage(_damage);
             
-            var duration = spawnHitParticle();
-            Destroy(_effectParticle, duration);
+            spawnHitParticleWithDestoryReservation();
         }
     }
 }

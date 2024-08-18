@@ -7,43 +7,24 @@ namespace Ingame
     {
         protected CcStatus _ccStatus;
         
-        public void Initialize(int ownerTowerID, int damage, int targetID, Vector3 targetPos, CcStatus ccStatus)
+        public void InitializeStunProjectile(Tower ownerTower , Mob mob, int damage, Vector3 targetPos, CcStatus ccStatus)
         {
-            _damage = damage;
-            _ownerTowerID = ownerTowerID;
+            base.InitializeProjectile(ownerTower, mob, damage, targetPos, 5f);
             
-            speed = 5f;
-            
-            _targetMobID = targetID;
-            _targetPos = targetPos;
             _ccStatus = ccStatus;
         }
-        
-        private void Update()
-        {
-            Vector3 dir = _targetPos - transform.position;
-            transform.Translate(dir.normalized * (speed * Time.deltaTime), Space.World);
 
-            if (Vector3.Distance(transform.position, _targetPos) <= 0.05f)
-            {
-                HitTask();
-            }
-        }
-
-        private new void HitTask()
+        protected override void HitTask()
         {
-            //TODO : spawn hit particle
-            var mobs = FindObjectsByType<Mob>(FindObjectsSortMode.InstanceID);
-            foreach (var mob in mobs)
-            {
-                if (mob.GetID() == _targetMobID)
-                {
-                    mob.TakeCc(_ccStatus);
-                    mob.TakeDamage(_damage);
-                }
-            }
-            
+            _targetMob.TakeCc(_ccStatus);
+            _targetMob.TakeDamage(_damage);
+           
+            spawnHitParticleWithDestoryReservation(); 
             Destroy(gameObject);
+        }
+        protected override void Update()
+        {
+            base.Update();
         }
     }
 }
