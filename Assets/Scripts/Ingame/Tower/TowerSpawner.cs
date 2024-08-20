@@ -37,21 +37,21 @@ public class TowerSpawner : MonoBehaviour
 
         if (level == 0 )
         {
-            tower.GetComponent<SlowTower>().SetData(level, false);
+            tower.GetComponent<SlowTower>().SetData(deckMade, false);
         }
         else if (level == 1)
         {
-            tower.GetComponent<StunTower>().SetData(level, false);
+            tower.GetComponent<StunTower>().SetData(deckMade, false);
         }
         else if (level ==3 || level == 4)
         {
-            tower.GetComponent<SplashTower>().SetData(level, false);
+            tower.GetComponent<SplashTower>().SetData(deckMade, false);
         } else if (level == 7 || level == 8)
         {
-            tower.GetComponent<SplashTower>().SetData(level, false);
+            tower.GetComponent<SplashTower>().SetData(deckMade, false);
         } else
         {
-            tower.GetComponent<Tower>().SetData(level, false);    
+            tower.GetComponent<Tower>().SetData(deckMade, false);    
         }
     }
 }

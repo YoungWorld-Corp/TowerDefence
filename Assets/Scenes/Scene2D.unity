@@ -695,7 +695,6 @@ MonoBehaviour:
   towerSpawner: {fileID: 466606739}
   tilemap: {fileID: 1352290939}
   hoveredTower: {fileID: 0}
-  hoveredTowerLevel: 0
 --- !u!1 &548746387
 GameObject:
   m_ObjectHideFlags: 0

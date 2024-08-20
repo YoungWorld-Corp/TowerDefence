@@ -38,10 +38,6 @@ namespace Ingame
             CcStatus ccStatus = new CcStatus();
             ccStatus.stunDuration = 0.3f;
             
-            if (towerProjectile == null)
-            {
-                Debug.Log("towerProject null");
-            }
             towerProjectile.InitializeStunProjectile(this, targetMob, damage, targetPos, ccStatus);
         }
     }

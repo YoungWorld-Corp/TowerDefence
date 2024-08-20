@@ -113,7 +113,7 @@ public class Mob : MonoBehaviour
         }
         
         GameState.Instance.damageTextSystem.AddDamageInfo(new DamageTextInfo(
-            amount, gameObject, 1
+            amount, gameObject, gameObject.transform.position 
         ));
     }
     

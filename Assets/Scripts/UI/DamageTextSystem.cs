@@ -8,12 +8,14 @@ public struct DamageTextInfo
     public GameObject mob;
     public float show_duration;
     public float remain_duration;
-    public DamageTextInfo(int damage, GameObject mob, float show_duration = 1f)
+    public Vector3 last_position; // Use when mob is dead 
+    public DamageTextInfo(int damage, GameObject mob, Vector3 init_position, float show_duration = 0.5f)
     {
         this.damage = damage;
         this.mob = mob;
         this.show_duration = show_duration;
         this.remain_duration = show_duration;
+        this.last_position = init_position;
     }
 }
 
@@ -74,16 +76,24 @@ public class DamageTextSystem : MonoBehaviour
             {
                 GameObject TextObject = _textPool[i];
                 DamageTextInfo DamageInfo = _damageInfos[i];
+                Vector3 TextPosition = DamageInfo.last_position;
+                float yPadding = GetTextYPadding(DamageInfo.remain_duration, DamageInfo.show_duration);
+
                 if (!DamageInfo.mob || DamageInfo.mob.IsDestroyed())
                 {
-                    // mob is dead.
-                    continue;
+                    // use last_position
+                }
+                else
+                {
+                    Vector3 screenPosition = mainCamera.WorldToScreenPoint(DamageInfo.mob.transform.position);
+                    TextPosition = new Vector3(screenPosition.x, screenPosition.y, 0);
+                    DamageInfo.last_position = TextPosition;
                 }
 
-                float yPadding = GetTextYPadding(DamageInfo.remain_duration, DamageInfo.show_duration);
-                Vector3 screenPosition = mainCamera.WorldToScreenPoint(DamageInfo.mob.transform.position);
-                TextObject.transform.position = new Vector3(screenPosition.x, screenPosition.y + yPadding, 0);
+                TextObject.transform.position = new Vector3(TextPosition.x , TextPosition.y + yPadding, 0);
+
                 TextObject.GetComponent<TMPro.TextMeshProUGUI>().text = DamageInfo.damage.ToString();
+                TextObject.GetComponent<TMPro.TextMeshProUGUI>().alpha = GetTextAlpha(DamageInfo.remain_duration, DamageInfo.show_duration);
 
                 TextObject.SetActive(true);
                 DamageInfo.remain_duration -= Time.deltaTime;
@@ -108,6 +118,11 @@ public class DamageTextSystem : MonoBehaviour
         float duration_ratio = remain_duration / show_duration;
         float yPadding = TEXT_PADDING_Y + (1-duration_ratio) * 40;
         return yPadding;
+    }
+    public float GetTextAlpha(float remain_duration, float show_duration)
+    {
+        float alpha = remain_duration / show_duration;
+        return alpha;
     }
 
     private void Swap<T>(ref List<T> first, ref List<T> second)

@@ -101,4 +101,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  effectParticle: {fileID: 8172849020266659018, guid: 1b06286743e8ca948a5de42335023586, type: 3}
+  effectParticle: {fileID: 0}

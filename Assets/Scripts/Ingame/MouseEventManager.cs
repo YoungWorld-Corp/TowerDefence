@@ -16,7 +16,8 @@ public class MouseEventManager : MonoBehaviour
     private RaycastHit hit;
 
     public GameObject hoveredTower;
-    public int hoveredTowerLevel = -1;
+    private int _hoveredTowerLevel = -1;
+    private DeckMade _hoveredTowerDeckMade;
 
     private void Awake()
     {
@@ -56,13 +57,14 @@ public class MouseEventManager : MonoBehaviour
         }
         
         int nextTowerLevel = (int)GameState.Instance.nextDeckMade.deckMadeType;
-        if (hoveredTowerLevel != nextTowerLevel)
+        if (_hoveredTowerLevel != nextTowerLevel)
         {
             // Change sprite
-            hoveredTowerLevel = nextTowerLevel;
-            if (hoveredTowerLevel >= 0)
+            _hoveredTowerLevel = nextTowerLevel;
+            _hoveredTowerDeckMade = GameState.Instance.nextDeckMade;
+            if (_hoveredTowerLevel >= 0)
             {
-                var prefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + hoveredTowerLevel.ToString());
+                var prefab = (GameObject)Resources.Load("Prefabs/Towers/Tower" + _hoveredTowerLevel.ToString());
                 
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 location = tilemap.WorldToCell(mousePos);
@@ -79,7 +81,7 @@ public class MouseEventManager : MonoBehaviour
                 renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.3f);
 
                 Tower tower = prefab.GetComponent<Tower>();
-                tower.SetData(hoveredTowerLevel, true);
+                tower.SetData(_hoveredTowerDeckMade, true);
             }
             else
             {

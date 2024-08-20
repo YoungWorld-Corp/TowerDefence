@@ -11,7 +11,7 @@ public class Tower : MonoBehaviour
     protected int _damage;
     protected float _attackCooldown; // seconds
     protected float _cooldownTimer = 0f;
-    
+    protected DeckMade _deckMade;
     protected int _attackRadius;
     protected bool _bDisplayMode = false;
     
@@ -53,16 +53,17 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void SetData(int level, bool bDisplayMode)
+    public void SetData(DeckMade deckMade, bool bDisplayMode)
     {
-        _level = level;
+        _level = (int)deckMade.deckMadeType;
         // int to enum
-        _damage = (int)Meta.TowerDamageFromLevel(level);
-        _attackCooldown = Meta.TowerAttackCooldownFromLevel(level);
-        _attackRadius = Meta.TowerAttackRadiusFromLevel(level);
+        _damage = (int)Meta.GetTowerPower(_level, deckMade.highestNumber);
+        _attackCooldown = Meta.TowerAttackCooldownFromLevel(_level);
+        _attackRadius = Meta.TowerAttackRadiusFromLevel(_level);
         _bDisplayMode = bDisplayMode;
+        _deckMade = deckMade;
 
-        imgProjectile = Meta.ProjectileFromLevel(level);
+        imgProjectile = Meta.ProjectileFromLevel(_level);
     }
 
     public int RandomizeDamage(int damage)
