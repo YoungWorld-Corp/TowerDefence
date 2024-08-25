@@ -19,7 +19,7 @@ namespace Ingame
             _targetMob.TakeCc(_ccStatus);
             _targetMob.TakeDamage(_damage);
            
-            spawnHitParticleWithDestoryReservation(); 
+            SpawnHitParticleWithDestroyReservation();
             Destroy(gameObject);
         }
         protected override void Update()

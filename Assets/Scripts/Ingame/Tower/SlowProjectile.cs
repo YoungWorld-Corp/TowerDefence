@@ -8,6 +8,9 @@ namespace Ingame
         protected int _splashRangeRadius;
         protected CcStatus _ccStatus;
         
+        public GameObject effectParticle;
+        private GameObject _effectParticleSpawned;
+        
         public void InitializeSlowProjectile(Tower ownerTower, Mob mob, int damage, Vector3 targetPos, int splashRadius, CcStatus ccStatus)
         {
             base.InitializeProjectile(ownerTower, mob, damage, targetPos, 50f);
@@ -29,9 +32,10 @@ namespace Ingame
                 }
             }
             
-            spawnHitParticleWithDestoryReservation();
+            SpawnHitParticleWithDestroyReservation();
             Destroy(gameObject);
         }
+
         protected override void Update()
         {
             base.Update();

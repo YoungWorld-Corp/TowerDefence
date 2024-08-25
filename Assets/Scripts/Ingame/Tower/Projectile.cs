@@ -25,8 +25,6 @@ namespace Ingame
             _damage = damage;
             _targetPos = targetPos;
             speed = in_speed;
-
-            //_effectParticle = (GameObject)Resources.Load("Prefabs/Effects/Fire/Hit Fire(Air)");
         }
 
         protected Vector3 GetTargetPosition()
@@ -53,10 +51,10 @@ namespace Ingame
                 HitTask();
             }
         }
-        
-        protected void spawnHitParticleWithDestoryReservation()
+
+        protected void SpawnHitParticleWithDestroyReservation()
         {
-            if (effectParticle == null) return;
+            if (!effectParticle) return;
 
             // spawn effectParticle
             Vector3 targetPosition = GetTargetPosition(); 
@@ -76,7 +74,7 @@ namespace Ingame
             //TODO : spawn hit particle
             _targetMob.TakeDamage(_damage);
             
-            spawnHitParticleWithDestoryReservation();
+            SpawnHitParticleWithDestroyReservation();
         }
     }
 }

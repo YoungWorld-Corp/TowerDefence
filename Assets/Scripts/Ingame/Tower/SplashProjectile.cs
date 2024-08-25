@@ -25,7 +25,7 @@ namespace Ingame
                 }
             }
             
-            spawnHitParticleWithDestoryReservation();
+            SpawnHitParticleWithDestroyReservation();
             Destroy(gameObject);
         }
         protected override void Update()
