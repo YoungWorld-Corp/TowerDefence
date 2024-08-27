@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-struct MobSpawnRule
+public struct MobSpawnRule
 {
     public MobType mobType;
     public int num;
@@ -13,7 +13,7 @@ struct MobSpawnRule
     public int Hp;
     public float speed;
 
-    private static int mobId = 0;
+    static int mobId = 0;
 
     public MobSpawnRule(MobType mobId, int num, int Hp, float speed, float spawnGap)
     {
@@ -30,7 +30,7 @@ struct MobSpawnRule
         return mobId++;
     }
 }
-struct SpawnState
+public struct SpawnState
 {
     public int remain;
     public SpawnState(MobSpawnRule spawnRule)
@@ -49,11 +49,9 @@ public class MobSpawner : MonoBehaviour
 {
     public Tilemap tilemap;
     public GameObject Prefab_Shark;
-    MobSpawnRule spawnRule;
-    List<Vector3> wayPointsWorld;
-    SpawnState spawnState;
-
-    
+    protected MobSpawnRule spawnRule;
+    protected List<Vector3> wayPointsWorld;
+    protected SpawnState spawnState;
 
     // Start is called before the first frame update
     void Start()
