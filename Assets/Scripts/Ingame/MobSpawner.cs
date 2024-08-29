@@ -63,7 +63,7 @@ public class MobSpawner : MonoBehaviour
         GameState.Instance.mobSpawner = this;
     }
 
-    public void StartPhase(int stage)
+    public virtual void StartPhase(int stage)
     {
         spawnRule = MobData.GetMobSpawnRule(stage);
         spawnState = new SpawnState(spawnRule);
@@ -128,7 +128,7 @@ public class MobSpawner : MonoBehaviour
         return worldWayPoints;
     }
 
-    public void NotifyDie()
+    public virtual void NotifyDie()
     {
         spawnState.remain--;
         if (spawnState.remain == 0)

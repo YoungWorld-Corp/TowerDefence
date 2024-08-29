@@ -12,7 +12,7 @@ public class MobSpawner3D : MobSpawner
         GameState.Instance.mobSpawner = this;
     }
 
-    new void StartPhase(int stage)
+    public override void StartPhase(int stage)
     {
         spawnRule = MobData.GetMobSpawnRule(stage);
         spawnState = new SpawnState(spawnRule);
@@ -44,17 +44,22 @@ public class MobSpawner3D : MobSpawner
 
     List<Vector3> GetWaypointObjectsFromScene()
     {
-        var waypoint3Ds = FindObjectsByType<Waypoint3D>(FindObjectsSortMode.InstanceID);
+        // var waypoint3Ds = FindObjectsByType<Waypoint3D>(FindObjectsSortMode.InstanceID);
+        // List<Vector3> wayPoints = new List<Vector3>();
+        // foreach (var waypoint in waypoint3Ds)
+        // {
+        //     wayPoints.Add(waypoint.transform.position);
+        // }
+        //
         List<Vector3> wayPoints = new List<Vector3>();
-        foreach (var waypoint in waypoint3Ds)
-        {
-            wayPoints.Add(waypoint.transform.position);
-        }
+        wayPoints.Add(new Vector3(-1, 0, -1));
+        wayPoints.Add(new Vector3(4, 0, -1));
+        wayPoints.Add(new Vector3(4, 0, 4));
 
         return wayPoints;
     }
 
-    new void NotifyDie()
+    public override void NotifyDie()
     {
         spawnState.remain--;
         if (spawnState.remain == 0)
